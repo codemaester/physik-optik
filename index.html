@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+
+<html lang="de">
+<head>
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<meta content="light dark" name="color-scheme"/>
+<title>Physik Optik – interaktive Lernseite Klasse 9</title>
+<style>
+:root{
+  --bg:#f4f7fb;--panel:#ffffff;--text:#172033;--muted:#5f6878;--line:#dbe2ec;
+  --brand:#3157d5;--brand2:#6b46d9;--good:#117a55;--bad:#b33434;--warn:#9a6500;
+  --soft:#eef3ff;--soft2:#f4efff;--shadow:0 10px 28px rgba(31,49,93,.09);
+  color-scheme:light dark;
+}
+@media(prefers-color-scheme:dark){:root{--bg:#0f1521;--panel:#171f2e;--text:#eef3ff;--muted:#aeb8ca;--line:#2d3950;--brand:#8aa7ff;--brand2:#b695ff;--good:#58d7a4;--bad:#ff9292;--warn:#ffd166;--soft:#192540;--soft2:#261e3e;--shadow:0 12px 30px rgba(0,0,0,.25)}}
+*{box-sizing:border-box}html{scroll-behavior:auto}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.62}a{color:var(--brand)}button,input,select,textarea{font:inherit}.container{width:min(1120px,calc(100% - 28px));margin:auto}.hero{padding:44px 0 28px;background:linear-gradient(135deg,var(--soft),var(--soft2));border-bottom:1px solid var(--line)}.hero-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:26px;align-items:center}.kicker{font-weight:850;letter-spacing:.08em;text-transform:uppercase;color:var(--brand);font-size:.82rem}h1{font-size:clamp(2rem,5vw,4rem);line-height:1.05;margin:.3rem 0 1rem;letter-spacing:-.04em}.lead{font-size:clamp(1.05rem,2vw,1.24rem);color:var(--muted);max-width:62ch}.hero-card{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:var(--shadow)}.hero-card strong{font-size:1.1rem}.toolbar{position:sticky;top:0;z-index:15;background:color-mix(in srgb,var(--panel) 94%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}.toolbar-inner{display:flex;gap:8px;overflow:auto;padding:8px 0}.btn{display:inline-flex;align-items:center;min-height:42px;padding:8px 13px;border:1px solid var(--line);border-radius:999px;background:var(--panel);color:var(--text);text-decoration:none;font-weight:750;white-space:nowrap}.btn:hover,.btn:focus-visible{border-color:var(--brand);outline:3px solid color-mix(in srgb,var(--brand) 20%,transparent);outline-offset:2px}.layout{display:grid;grid-template-columns:250px 1fr;gap:28px;padding:28px 0 70px}nav.side{position:sticky;top:76px;align-self:start;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:12px;max-height:calc(100vh - 92px);overflow:auto}nav.side a{display:block;text-decoration:none;color:var(--text);padding:9px 10px;border-radius:10px;font-size:.94rem}nav.side a:hover{background:var(--soft)}main{min-width:0}.chapter{background:var(--panel);border:1px solid var(--line);border-radius:24px;padding:clamp(20px,4vw,38px);margin-bottom:24px;box-shadow:var(--shadow)}.chapter-head{display:flex;gap:14px;align-items:flex-start;margin-bottom:22px}.num{width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,var(--brand),var(--brand2));color:white;display:grid;place-items:center;font-weight:900;flex:0 0 auto}h2{font-size:clamp(1.5rem,3vw,2.2rem);line-height:1.15;margin:0 0 6px;letter-spacing:-.025em}h3{margin-top:28px;line-height:1.25}h4{margin-bottom:6px}p{margin:.65rem 0}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}.card{border:1px solid var(--line);background:color-mix(in srgb,var(--panel) 94%,var(--soft) 6%);border-radius:16px;padding:16px}.note{border-left:5px solid var(--brand);background:var(--soft);border-radius:12px;padding:13px 15px;margin:16px 0}.note.good{border-left-color:var(--good)}.note.warn{border-left-color:var(--warn)}.diagram{border:1px solid var(--line);border-radius:18px;padding:14px;background:var(--panel);overflow:hidden}.table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.96rem;table-layout:fixed}.table th,.table td{border:1px solid var(--line);padding:9px;text-align:left;overflow-wrap:anywhere}.table th{background:var(--soft)}svg{width:100%;height:auto;display:block}.video{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(220px,.65fr);gap:16px;align-items:center;border:1px solid var(--line);border-radius:18px;padding:14px;background:var(--panel)}.video-frame{aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:#101010}.video-frame iframe{width:100%;height:100%;border:0}.video small{color:var(--muted)}.quiz{margin-top:30px;padding-top:24px;border-top:2px dashed var(--line)}.written{border:1px solid var(--line);border-radius:14px;padding:14px;margin:12px 0}textarea{width:100%;min-height:110px;border:1px solid var(--line);border-radius:12px;padding:10px;background:var(--panel);color:var(--text);resize:vertical}details.solution{margin-top:10px;border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:color-mix(in srgb,var(--panel) 90%,var(--soft) 10%)}details summary{cursor:pointer;font-weight:800}.footer{color:var(--muted);padding:0 0 50px}
+/* JS-free interactive modules */
+.css-sim{padding:clamp(15px,2.7vw,24px);border:1px solid color-mix(in srgb,var(--brand) 28%,var(--line));border-radius:20px;background:linear-gradient(145deg,color-mix(in srgb,var(--panel) 96%,var(--soft) 4%),var(--panel));box-shadow:0 12px 30px rgba(31,49,93,.08)}.sim-head{display:flex;align-items:center;gap:9px;margin-bottom:14px;font-weight:850}.sim-head .dot{width:10px;height:10px;border-radius:50%;background:var(--good);box-shadow:0 0 0 4px color-mix(in srgb,var(--good) 15%,transparent)}.sim-help{color:var(--muted);font-size:.9rem;margin:-6px 0 14px}.state-input{position:absolute;opacity:0;pointer-events:none}.choice-row{display:flex;flex-wrap:wrap;gap:9px;margin:10px 0 16px}.choice-row label{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:9px 14px;border:1px solid var(--line);border-radius:12px;background:var(--panel);font-weight:800;cursor:pointer;touch-action:manipulation}.choice-row label:hover{border-color:var(--brand)}.state-input:focus-visible~.choice-row label{outline:none}.scene{display:none;border:1px solid var(--line);border-radius:16px;padding:12px;background:color-mix(in srgb,var(--panel) 96%,var(--soft) 4%)}.scene .readout{margin-top:10px;border-left:4px solid var(--brand);border-radius:10px;padding:10px 12px;background:var(--soft);font-weight:800}.scene svg{max-height:340px}.ray-in{stroke:#e89a00;stroke-width:6;stroke-linecap:round}.ray-ref{stroke:#5576df;stroke-width:6;stroke-linecap:round}.ray-out{stroke:#249c70;stroke-width:6;stroke-linecap:round}.ray-soft{stroke:#249c70;stroke-width:3;stroke-linecap:round}.normal{stroke:currentColor;stroke-width:2;stroke-dasharray:8 8;opacity:.55}.surface{stroke:currentColor;stroke-width:4;opacity:.7}.obj{stroke:#d24b4b;stroke-width:8;stroke-linecap:round}.shadow{stroke:#111827;stroke-width:16;stroke-linecap:round}.screen{stroke:currentColor;stroke-width:5}.light{fill:#f2b600}.mirror{stroke:#6f8cff;stroke-width:8}.person{stroke:currentColor;stroke-width:8;fill:none;stroke-linecap:round}.ghost{stroke:currentColor;stroke-width:7;fill:none;stroke-dasharray:7 7;opacity:.42}.medium1{fill:color-mix(in srgb,var(--brand) 8%,transparent)}.medium2{fill:color-mix(in srgb,var(--brand2) 9%,transparent)}.svgtext{fill:currentColor;font-size:16px}.svgstrong{fill:currentColor;font-size:17px;font-weight:800}
+/* state selectors */
+#mat-mirror:checked~.choice-row label[for=mat-mirror],#mat-black:checked~.choice-row label[for=mat-black],#mat-glass:checked~.choice-row label[for=mat-glass],#mat-frost:checked~.choice-row label[for=mat-frost],#sh-near:checked~.choice-row label[for=sh-near],#sh-mid:checked~.choice-row label[for=sh-mid],#sh-far:checked~.choice-row label[for=sh-far],#rf-20:checked~.choice-row label[for=rf-20],#rf-45:checked~.choice-row label[for=rf-45],#rf-70:checked~.choice-row label[for=rf-70],#mi-70:checked~.choice-row label[for=mi-70],#mi-120:checked~.choice-row label[for=mi-120],#mi-180:checked~.choice-row label[for=mi-180],#mh-150:checked~.choice-row label[for=mh-150],#mh-170:checked~.choice-row label[for=mh-170],#mh-190:checked~.choice-row label[for=mh-190],#br-airglass:checked~.choice-row label[for=br-airglass],#br-glassair:checked~.choice-row label[for=br-glassair],#br-waterair:checked~.choice-row label[for=br-waterair],#tir-30:checked~.choice-row label[for=tir-30],#tir-42:checked~.choice-row label[for=tir-42],#tir-55:checked~.choice-row label[for=tir-55]{background:var(--brand);border-color:var(--brand);color:#fff}
+#mat-mirror:checked~.state-stack .mat-mirror,#mat-black:checked~.state-stack .mat-black,#mat-glass:checked~.state-stack .mat-glass,#mat-frost:checked~.state-stack .mat-frost,#sh-near:checked~.state-stack .sh-near,#sh-mid:checked~.state-stack .sh-mid,#sh-far:checked~.state-stack .sh-far,#rf-20:checked~.state-stack .rf-20,#rf-45:checked~.state-stack .rf-45,#rf-70:checked~.state-stack .rf-70,#mi-70:checked~.state-stack .mi-70,#mi-120:checked~.state-stack .mi-120,#mi-180:checked~.state-stack .mi-180,#mh-150:checked~.state-stack .mh-150,#mh-170:checked~.state-stack .mh-170,#mh-190:checked~.state-stack .mh-190,#br-airglass:checked~.state-stack .br-airglass,#br-glassair:checked~.state-stack .br-glassair,#br-waterair:checked~.state-stack .br-waterair,#tir-30:checked~.state-stack .tir-30,#tir-42:checked~.state-stack .tir-42,#tir-55:checked~.state-stack .tir-55{display:block}
+/* JS-free quizzes */
+.css-mcq{border:1px solid var(--line);border-radius:16px;padding:15px;margin:13px 0;background:color-mix(in srgb,var(--panel) 97%,var(--soft) 3%)}.question-title{font-weight:850;margin-bottom:10px}.quiz-option{margin:8px 0}.quiz-option input{position:absolute;opacity:0}.quiz-option label{display:flex;gap:10px;align-items:flex-start;min-height:46px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;cursor:pointer;background:var(--panel);touch-action:manipulation}.quiz-option label:before{content:"";width:18px;height:18px;flex:0 0 auto;margin-top:2px;border:2px solid var(--muted);border-radius:50%}.quiz-option input:checked+label{border-color:var(--brand);background:var(--soft)}.quiz-option input:checked+label:before{border:5px solid var(--brand)}.option-feedback{display:none;margin:7px 3px 0;padding:8px 10px;border-radius:9px;font-weight:750}.quiz-option input:checked~.option-feedback{display:block}.option-feedback.good{color:var(--good);background:color-mix(in srgb,var(--good) 10%,transparent)}.option-feedback.bad{color:var(--bad);background:color-mix(in srgb,var(--bad) 8%,transparent)}.nojs-badge{display:inline-flex;align-items:center;gap:7px;padding:7px 10px;border-radius:999px;background:color-mix(in srgb,var(--good) 10%,transparent);color:var(--good);font-weight:850;font-size:.86rem}
+@media(max-width:880px){.hero-grid,.layout,.video{grid-template-columns:1fr}.side{display:none!important}.grid2{grid-template-columns:1fr}.hero{padding-top:32px}}@media(max-width:560px){.container{width:min(100% - 18px,1120px)}.chapter{border-radius:18px;padding:18px}.choice-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.choice-row label{padding:9px 8px;text-align:center}.scene{padding:8px}.scene svg{max-height:270px}.table{font-size:.88rem}.toolbar-inner{padding:7px 0}}@media(max-width:360px){.choice-row{grid-template-columns:1fr}}@media print{body{background:#fff;color:#000}.toolbar,.side,.video-frame{display:none!important}.layout{display:block;padding:0}.chapter{box-shadow:none;border:1px solid #aaa}.scene{display:block!important}.choice-row{display:none}.quiz-option .option-feedback{display:none!important}}
+/* Progressive enhancement: rich JavaScript simulations. The CSS-only modules remain as fallback. */
+.live-sim{display:none}
+html.js-live .live-sim{display:block}
+html.js-live .css-sim{display:none}
+.live-sim{position:relative;border:1px solid color-mix(in srgb,var(--brand) 28%,var(--line));border-radius:24px;overflow:hidden;background:linear-gradient(145deg,color-mix(in srgb,var(--panel) 96%,var(--soft) 4%),var(--panel));box-shadow:0 18px 44px rgba(31,49,93,.10);margin:12px 0 8px}
+.live-sim::before{content:"";position:absolute;inset:0 0 auto;height:4px;background:linear-gradient(90deg,var(--brand),var(--brand2),var(--good))}
+.live-top{display:flex;gap:14px;align-items:flex-start;justify-content:space-between;padding:18px 20px 8px}
+.live-title{font-size:1.05rem;font-weight:900;letter-spacing:-.01em}.live-subtitle{color:var(--muted);font-size:.91rem;margin-top:3px;max-width:68ch}
+.live-badge{display:inline-flex;align-items:center;gap:7px;white-space:nowrap;border:1px solid color-mix(in srgb,var(--good) 35%,var(--line));background:color-mix(in srgb,var(--good) 10%,var(--panel));color:var(--good);border-radius:999px;padding:6px 9px;font-size:.78rem;font-weight:850}.live-badge::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--good);box-shadow:0 0 0 4px color-mix(in srgb,var(--good) 14%,transparent)}
+.live-grid{display:grid;grid-template-columns:minmax(230px,.72fr) minmax(0,1.55fr);gap:18px;padding:12px 20px 20px}.live-controls{display:flex;flex-direction:column;gap:13px}.control-card{border:1px solid var(--line);border-radius:16px;padding:13px;background:color-mix(in srgb,var(--panel) 96%,var(--soft) 4%)}.control-card label,.control-card .control-label{display:block;font-weight:850;margin-bottom:7px}.control-value{float:right;color:var(--brand);font-variant-numeric:tabular-nums}.control-card input[type=range]{display:block;width:100%;min-height:36px;margin:2px 0;accent-color:var(--brand)}.control-card select{width:100%;min-height:44px;border:1px solid var(--line);border-radius:11px;padding:8px 10px;background:var(--panel);color:var(--text);font-size:1rem}.control-card input[type=checkbox]{width:20px;height:20px;accent-color:var(--brand);vertical-align:-4px;margin-right:7px}.control-hint{color:var(--muted);font-size:.82rem;line-height:1.4;margin-top:4px}.live-reset{min-height:43px;border:1px solid var(--line);border-radius:12px;padding:8px 12px;background:var(--panel);color:var(--text);font-weight:800;cursor:pointer}.live-reset:hover,.live-reset:focus-visible{border-color:var(--brand);outline:3px solid color-mix(in srgb,var(--brand) 18%,transparent);outline-offset:2px}
+.live-stage-wrap{min-width:0}.live-stage{position:relative;border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg,color-mix(in srgb,var(--soft) 48%,var(--panel)),var(--panel));overflow:hidden}.live-stage svg{display:block;width:100%;height:auto;aspect-ratio:16/9;min-height:260px}.live-caption{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px}.metric{border:1px solid var(--line);border-radius:12px;padding:9px 10px;background:var(--panel);min-width:0}.metric small{display:block;color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;font-weight:800}.metric strong{display:block;font-size:1.02rem;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}.live-explain{margin-top:10px;border-left:4px solid var(--brand);background:var(--soft);border-radius:11px;padding:10px 12px;font-weight:750}.live-explain.good{border-left-color:var(--good)}.live-explain.warn{border-left-color:var(--warn)}
+.live-svg-text{fill:currentColor;font-size:15px}.live-svg-small{fill:currentColor;font-size:12px;opacity:.72}.live-svg-label{fill:currentColor;font-size:14px;font-weight:800}.live-surface{stroke:currentColor;stroke-width:3;opacity:.68}.live-normal{stroke:currentColor;stroke-width:2;stroke-dasharray:8 8;opacity:.44}.live-ray-in{stroke:#f0a11a;stroke-width:6;stroke-linecap:round}.live-ray-ref{stroke:#5d7ce2;stroke-width:6;stroke-linecap:round}.live-ray-out{stroke:#22a579;stroke-width:6;stroke-linecap:round}.live-ray-faint{stroke:#5d7ce2;stroke-width:4;stroke-linecap:round;opacity:.4}.live-guide{stroke:currentColor;stroke-width:2;stroke-dasharray:5 7;opacity:.3}.live-mirror{stroke:#7891f2;stroke-width:8;stroke-linecap:round}.live-object{stroke:#df5a54;stroke-width:8;stroke-linecap:round}.live-image{stroke:currentColor;stroke-width:7;stroke-dasharray:7 7;opacity:.42;stroke-linecap:round}.live-screen{stroke:currentColor;stroke-width:5}.live-glow{fill:#f4b61a}.live-medium-a{fill:color-mix(in srgb,var(--brand) 7%,transparent)}.live-medium-b{fill:color-mix(in srgb,var(--brand2) 9%,transparent)}.live-beam{stroke-dasharray:15 12;animation:beamFlow 1.15s linear infinite}@keyframes beamFlow{to{stroke-dashoffset:-54}}@media(prefers-reduced-motion:reduce){.live-beam{animation:none}}
+.energy-bars{display:grid;gap:7px;margin-top:4px}.energy-row{display:grid;grid-template-columns:92px 1fr 46px;gap:7px;align-items:center;font-size:.82rem}.energy-track{height:9px;border-radius:999px;background:color-mix(in srgb,var(--line) 70%,transparent);overflow:hidden}.energy-fill{height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--brand),var(--brand2))}.energy-row:nth-child(2) .energy-fill{background:linear-gradient(90deg,var(--good),var(--brand))}.energy-row:nth-child(3) .energy-fill{background:linear-gradient(90deg,var(--warn),#db6d4d)}.energy-row:nth-child(4) .energy-fill{background:linear-gradient(90deg,var(--brand2),var(--good))}
+.critical-meter{height:12px;border-radius:999px;background:linear-gradient(90deg,color-mix(in srgb,var(--good) 45%,var(--panel)) 0 50%,color-mix(in srgb,var(--warn) 50%,var(--panel)) 50% 70%,color-mix(in srgb,var(--bad) 45%,var(--panel)) 70% 100%);position:relative;margin-top:9px}.critical-marker{position:absolute;top:50%;width:18px;height:18px;border-radius:50%;background:var(--panel);border:4px solid var(--brand);transform:translate(-50%,-50%);box-shadow:0 2px 8px rgba(0,0,0,.18)}
+@media(max-width:850px){.live-grid{grid-template-columns:1fr}.live-controls{display:grid;grid-template-columns:1fr 1fr}.live-controls .live-reset{grid-column:1/-1}.live-stage svg{min-height:230px}.live-caption{grid-template-columns:1fr 1fr 1fr}}
+@media(max-width:560px){.live-top{display:block}.live-badge{margin-top:10px}.live-grid{padding:10px 14px 16px}.live-controls{grid-template-columns:1fr}.live-controls .live-reset{grid-column:auto}.live-caption{grid-template-columns:1fr 1fr}.metric:last-child:nth-child(odd){grid-column:1/-1}.live-stage svg{min-height:215px}.energy-row{grid-template-columns:82px 1fr 42px}}
+
+
+/* Smooth automatic scrolling is avoided so mobile sticky navigation never interrupts button taps. */
+.chapter{scroll-margin-top:84px}
+/* Video cards: offline-safe links plus optional hosted player */
+.video-modern{display:grid;grid-template-columns:minmax(170px,1.05fr) minmax(0,1.25fr);gap:0;padding:0;overflow:hidden;margin:18px 0 24px;border-radius:20px;border:1px solid var(--line);background:var(--panel);box-shadow:0 8px 24px rgba(12,26,56,.06)}
+.video-visual{position:relative;min-height:205px;padding:20px;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;color:#fff;background:radial-gradient(circle at 75% 25%,rgba(134,205,255,.24),transparent 45%),linear-gradient(135deg,#102748,#244a79 58%,#3a67b1);isolation:isolate}
+.video-modern[data-chapter="2"] .video-visual{background:radial-gradient(circle at 70% 25%,rgba(251,204,84,.3),transparent 45%),linear-gradient(125deg,#4b2c61,#a56864)}
+.video-modern[data-chapter="3"] .video-visual{background:radial-gradient(circle at 73% 27%,rgba(110,205,255,.3),transparent 45%),linear-gradient(125deg,#123c57,#20718f)}
+.video-modern[data-chapter="4"] .video-visual,.video-modern[data-chapter="5"] .video-visual{background:radial-gradient(circle at 76% 25%,rgba(190,186,255,.35),transparent 40%),linear-gradient(125deg,#31305a,#5654a8)}
+.video-modern[data-chapter="6"] .video-visual{background:radial-gradient(circle at 76% 25%,rgba(90,251,195,.25),transparent 50%),linear-gradient(125deg,#134f55,#2f9d87)}
+.video-modern[data-chapter="7"] .video-visual{background:radial-gradient(circle at 70% 25%,rgba(113,200,255,.2),transparent 44%),linear-gradient(125deg,#25264d,#56539c)}
+.video-index{font-size:.7rem;font-weight:900;letter-spacing:.11em;opacity:.9}.video-play-icon{width:72px;height:72px;display:grid;place-items:center;border:2px solid rgba(255,255,255,.78);border-radius:100%;background:rgba(255,255,255,.12);font-size:30px;align-self:center;padding-left:5px;box-shadow:0 0 0 13px rgba(255,255,255,.06)}.video-visual-foot{font-size:.83rem;opacity:.85}
+.video-info{padding:clamp(17px,3vw,25px);min-width:0;align-self:center}.video-eyebrow{font-size:.69rem;letter-spacing:.1em;color:var(--brand);font-weight:900}.video-info h4{font-size:1.1rem;line-height:1.35;margin:8px 0}.video-info p{font-size:.91rem;line-height:1.5;color:var(--muted);margin:0 0 16px}.video-actions{display:flex;gap:9px;flex-wrap:wrap;align-items:center}.video-primary,.video-embed{min-height:44px;display:inline-flex;justify-content:center;align-items:center;border-radius:12px;padding:10px 13px;font-size:.91rem;line-height:1.25;font-weight:800;text-decoration:none;cursor:pointer}.video-primary{background:var(--brand);color:#fff}.video-embed{color:var(--text);background:var(--soft);border:1px solid var(--line)}.video-primary:focus-visible,.video-embed:focus-visible{outline:3px solid var(--brand);outline-offset:3px}.video-footnote{display:block;color:var(--muted);line-height:1.45;margin-top:10px}
+.video-player{grid-column:1 / -1;padding:14px 14px 16px;background:var(--soft)}.video-player[hidden]{display:none!important}.video-player iframe{display:block;width:100%;height:auto;aspect-ratio:16/9;border:0;border-radius:12px;background:#101010}.video-player .video-player-note{font-size:.85rem;color:var(--muted);margin-top:9px}.video-player .video-player-note a{font-weight:800}.video-modern .video-embed[hidden]{display:none!important}
+@media(max-width:650px){.video-modern{grid-template-columns:1fr}.video-visual{min-height:155px;padding:16px}.video-play-icon{height:58px;width:58px;font-size:24px}.video-info{padding:17px}}
+/* Keep touch/keyboard controls clear, including iOS local-file previews. */
+.live-controls input[type=range]{-webkit-appearance:auto;appearance:auto;accent-color:var(--brand);height:44px;min-height:44px;cursor:pointer;touch-action:pan-y}
+.control-card select{cursor:pointer}.live-badge{white-space:normal}
+.critical-jump{min-height:44px;border-radius:12px;color:var(--text);background:var(--soft);border:1px solid var(--brand);font-weight:800;cursor:pointer;padding:9px 12px}.critical-jump:disabled{cursor:not-allowed;opacity:.45}
+
+</style>
+</head>
+<body>
+<header class="hero" id="start">
+<div class="container hero-grid">
+<div>
+<div class="kicker">Physik · Optik · Klasse 9 · Gymnasium</div>
+<h1>Licht, Schatten, Spiegel &amp; Brechung</h1>
+<p class="lead">Eine vollständige Lernseite für die Lernkontrolle: von den Grundlagen bis zur Totalreflexion – mit interaktiven Simulationen, Merksätzen, Videos und Aufgaben.</p>
+<p><span class="badge">7 Kapitel</span><span class="badge">21 Multiple-Choice-Fragen</span><span class="badge">14 schriftliche Aufgaben</span><span class="badge">Offline lernbar*</span></p>
+</div>
+<aside class="hero-card"><strong>So nutzt du die Seite sinnvoll</strong><ol><li>Lies ein Kapitel langsam.</li><li>Verändere in den Live-Simulationen Winkel, Medien und Abstände. Ohne JavaScript nutzt du die großen Auswahlfelder.</li><li>Beantworte die Multiple-Choice-Aufgaben – das Feedback erscheint sofort.</li><li>Bearbeite die schriftlichen Aufgaben zuerst ohne Musterlösung.</li></ol><span class="nojs-badge">✓ Kerninteraktionen funktionieren ohne JavaScript</span><p><small>Erklärvideos benötigen Internet. Lokal öffnen sie direkt auf YouTube; bei einer online gehosteten Seite ist zusätzlich ein eingebetteter Player verfügbar.</small></p></aside>
+</div>
+</header>
+<div class="toolbar">
+<div class="container toolbar-inner"><a class="btn" href="#k1">Start Kapitel 1</a><a class="btn" href="#k3">Reflexion</a><a class="btn" href="#k6">Brechung</a><a class="btn" href="#checkliste">✓ Prüfungs-Checkliste</a></div>
+</div>
+<div class="container layout">
+<nav aria-label="Kapitelübersicht" class="side">
+<a href="#k1">1. Verhalten an Grenzflächen</a>
+<a href="#k2">2. Schatten</a>
+<a href="#k3">3. Reflexionsgesetz</a>
+<a href="#k4">4. Eigenschaften des Spiegelbilds</a>
+<a href="#k5">5. Spiegelbilder konstruieren</a>
+<a href="#k6">6. Lichtbrechung</a>
+<a href="#k7">7. Totalreflexion</a>
+<a href="#checkliste">Prüfungs-Checkliste</a>
+</nav>
+<main>
+<section class="chapter" id="k1">
+<div class="chapter-head"><div class="num">1</div><div><h2>Verhalten von Licht an Grenzflächen</h2><p>Was kann passieren, wenn Licht auf einen Stoff oder eine Oberfläche trifft?</p></div></div>
+<div class="note"><strong>Grundidee:</strong> Licht kann an einer Grenzfläche <b>reflektiert</b>, <b>gestreut</b>, <b>absorbiert</b> oder <b>transmittiert</b> werden. Häufig geschehen mehrere dieser Vorgänge gleichzeitig.</div>
+<div class="grid2">
+<div class="card"><h3>Reflexion</h3><p>Licht wird an einer Oberfläche zurückgeworfen. Bei einer sehr glatten Oberfläche – etwa einem Spiegel – geschieht das geordnet. Dadurch kann ein Bild entstehen.</p><p><b>Beispiel:</b> Spiegel, ruhige Wasseroberfläche, poliertes Metall.</p></div>
+<div class="card"><h3>Streuung</h3><p>Licht wird in viele Richtungen verteilt. Das passiert vor allem an rauen Oberflächen oder in Stoffen mit vielen kleinen Teilchen.</p><p><b>Beispiel:</b> Papier, matte Wand, Nebel.</p></div>
+<div class="card"><h3>Absorption</h3><p>Licht wird vom Stoff aufgenommen. Die Energie des Lichts wird meist in innere Energie, also Wärme, umgewandelt.</p><p><b>Beispiel:</b> Ein schwarzes T-Shirt wird in der Sonne besonders warm.</p></div>
+<div class="card"><h3>Transmission</h3><p>Licht tritt durch einen Stoff hindurch. Bei <b>ungestörtem Durchgang</b> kann man klar hindurchsehen; bei <b>Durchgang mit Streuung</b> nur verschwommen.</p><p><b>Beispiel:</b> Fensterglas ist durchsichtig, Milchglas durchscheinend.</p></div>
+</div>
+<table class="table">
+<tr><th>Begriff</th><th>Was macht das Licht?</th><th>Typisches Beispiel</th></tr>
+<tr><td>Reflexion</td><td>wird zurückgeworfen</td><td>Spiegel</td></tr>
+<tr><td>Streuung</td><td>wird in viele Richtungen verteilt</td><td>raue Wand</td></tr>
+<tr><td>Absorption</td><td>wird aufgenommen</td><td>schwarzer Stoff</td></tr>
+<tr><td>Transmission</td><td>geht durch den Stoff</td><td>Fensterscheibe</td></tr>
+</table>
+<h3>Ausprobieren: Was passiert mit dem Licht?</h3>
+<div class="css-sim"><div class="sim-head"><span class="dot"></span>Interaktive Lernskizze</div><p class="sim-help">Einfach eine Auswahl antippen. Die Skizze wechselt sofort – kein JavaScript nötig.</p>
+<input checked="" class="state-input" id="mat-mirror" name="mat" type="radio"/><input class="state-input" id="mat-black" name="mat" type="radio"/><input class="state-input" id="mat-glass" name="mat" type="radio"/><input class="state-input" id="mat-frost" name="mat" type="radio"/>
+<div class="choice-row"><label for="mat-mirror">Spiegel</label><label for="mat-black">Schwarze Fläche</label><label for="mat-glass">Klarglas</label><label for="mat-frost">Milchglas</label></div>
+<div class="state-stack">
+<div class="scene mat-mirror"><svg aria-label="Reflexion am Spiegel" viewbox="0 0 700 250"><line class="surface" x1="355" x2="355" y1="25" y2="225"></line><line class="ray-in" x1="70" x2="350" y1="125" y2="125"></line><line class="ray-ref" x1="350" x2="140" y1="125" y2="60"></line><text class="svgstrong" x="390" y="55">Spiegel</text><text class="svgtext" x="390" y="88">viel Reflexion</text></svg><div class="readout">Spiegel: Das Licht wird überwiegend geordnet reflektiert.</div></div>
+<div class="scene mat-black"><svg aria-label="Absorption an einer schwarzen Fläche" viewbox="0 0 700 250"><rect fill="#20242c" height="200" rx="8" width="18" x="350" y="25"></rect><line class="ray-in" x1="70" x2="350" y1="125" y2="125"></line><circle cx="353" cy="125" fill="#e89a00" opacity=".18" r="24"></circle><text class="svgstrong" x="400" y="85">schwarze Fläche</text><text class="svgtext" x="400" y="118">starke Absorption</text></svg><div class="readout">Schwarz: Ein großer Teil der Lichtenergie wird aufgenommen und in Wärme umgewandelt.</div></div>
+<div class="scene mat-glass"><svg aria-label="Transmission durch Klarglas" viewbox="0 0 700 250"><rect fill="#8ed7f5" height="200" opacity=".28" rx="6" width="24" x="345" y="25"></rect><line class="ray-in" x1="70" x2="345" y1="125" y2="125"></line><line class="ray-out" x1="369" x2="635" y1="125" y2="125"></line><line class="ray-ref" opacity=".45" x1="345" x2="220" y1="125" y2="80"></line><text class="svgstrong" x="420" y="72">Klarglas</text><text class="svgtext" x="420" y="105">viel Transmission</text></svg><div class="readout">Klarglas: Viel Licht geht nahezu ungestört hindurch; ein kleiner Teil wird reflektiert.</div></div>
+<div class="scene mat-frost"><svg aria-label="Transmission mit Streuung durch Milchglas" viewbox="0 0 700 250"><rect fill="#dce4eb" height="200" opacity=".8" rx="6" width="24" x="345" y="25"></rect><line class="ray-in" x1="70" x2="345" y1="125" y2="125"></line><line class="ray-soft" x1="369" x2="620" y1="125" y2="60"></line><line class="ray-soft" x1="369" x2="630" y1="125" y2="125"></line><line class="ray-soft" x1="369" x2="620" y1="125" y2="190"></line><text class="svgstrong" x="420" y="45">Milchglas</text><text class="svgtext" x="420" y="78">Transmission + Streuung</text></svg><div class="readout">Milchglas: Licht geht hindurch, wird dabei aber in viele Richtungen gestreut.</div></div>
+</div></div>
+<div class="note good"><strong>Merke:</strong> „Durchsichtig“ bedeutet: Licht geht weitgehend ungestört hindurch. „Durchscheinend“ bedeutet: Licht geht hindurch, wird dabei aber stark gestreut.</div>
+<h3>Video</h3>
+<div class="video video-modern" data-video-id="rA7CU3ZOVjw" data-chapter="1">
+  <div class="video-visual"><span class="video-index">FILM 01 · KAPITEL 1</span><div class="video-play-icon" aria-hidden="true">▶</div><span class="video-visual-foot">Erklärvideo · online ansehen</span></div>
+  <div class="video-info"><div class="video-eyebrow">PASSEND ZU KAPITEL 1</div><h4>Reflexion – Phänomene an Oberflächen</h4><p>Passt besonders zu Reflexion, Streuung und Absorption.</p>
+  <div class="video-actions"><a class="video-primary" href="https://www.youtube.com/watch?v=rA7CU3ZOVjw" target="_blank" rel="noopener">↗ Auf YouTube ansehen</a><button type="button" class="video-embed" hidden aria-expanded="false">Hier abspielen</button></div>
+  <small class="video-footnote">Internet erforderlich · Der direkte YouTube-Link funktioniert auch beim lokalen Öffnen der HTML-Datei.</small>
+  </div><div class="video-player" hidden></div></div>
+<div class="quiz"><h3>Übungen zu Kapitel 1</h3>
+<div class="css-mcq"><div class="question-title">1. Warum kann man durch Milchglas nicht klar hindurchsehen?</div><div class="quiz-option"><input id="q1-a" name="q1" type="radio" value="a"/><label for="q1-a">Weil es alles Licht absorbiert.</label><div class="option-feedback bad">✗ Noch nicht. Lies den Merksatz bzw. die Erklärung direkt darüber noch einmal.</div></div><div class="quiz-option"><input id="q1-b" name="q1" type="radio" value="b"/><label for="q1-b">Weil das hindurchgehende Licht gestreut wird.</label><div class="option-feedback good">✓ Richtig. Gut erkannt.</div></div><div class="quiz-option"><input id="q1-c" name="q1" type="radio" value="c"/><label for="q1-c">Weil Licht dort überhaupt nicht eindringen kann.</label><div class="option-feedback bad">✗ Noch nicht. Lies den Merksatz bzw. die Erklärung direkt darüber noch einmal.</div></div></div>
+<div class="css-mcq"><div class="question-title">2. Was beschreibt Absorption?</div><div class="quiz-option"><input id="q2-a" name="q2" type="radio" value="a"/><label for="q2-a">Licht geht ungestört hindurch.</label><div class="option-feedback bad">✗ Noch nicht. Lies den Merksatz bzw. die Erklärung direkt darüber noch einmal.</div></div><div class="quiz-option"><input id="q2-b" name="q2" type="radio" value="b"/><label for="q2-b">Licht wird in viele Richtungen zurückgeworfen.</label><div class="option-feedback bad">✗ Noch nicht. Lies den Merksatz bzw. die Erklärung direkt darüber noch einmal.</div></div><div class="quiz-option"><input id="q2-c" name="q2" type="radio" value="c"/><label for="q2-c">Lichtenergie wird vom Stoff aufgenommen.</label><div class="option-feedback good">✓ Richtig. Gut erkannt.</div></div></div>
+<div class="css-mcq"><div class="question-title">3. Welche Oberfläche erzeugt am ehesten eine geordnete Reflexion?</div><div class="quiz-option"><input id="q3-a" name="q3" type="radio" value="a"/><label for="q3-a">eine sehr glatte Spiegelfläche</label><div class="option-feedback good">✓ Richtig. Gut erkannt.</div></div><div class="quiz-option"><input id="q3-b" name="q3" type="radio" value="b"/><label for="q3-b">grober Putz</label><div class="option-feedback bad">✗ Noch nicht. Lies den Merksatz bzw. die Erklärung direkt darüber noch einmal.</div></div><div class="quiz-option"><input id="q3-c" name="q3" type="radio" value="c"/><label for="q3-c">schwarzer Filz</label><div class="option-feedback bad">✗ Noch nicht. Lies den Merksatz bzw. die Erklärung direkt darüber noch einmal.</div></div></div>
+<div class="written"><b>Schriftlich A:</b> Erkläre mit eigenen Worten den Unterschied zwischen Reflexion und Streuung. Nenne je ein Beispiel.<textarea placeholder="Deine Antwort …"></textarea><details class="solution"><summary>Musterlösung anzeigen</summary><p>Bei Reflexion an einer glatten Fläche werden Lichtstrahlen geordnet zurückgeworfen. Bei Streuung werden sie in viele Richtungen verteilt. Beispiel: Spiegel = Reflexion, matte Wand = Streuung.</p></details></div>
+<div class="written"><b>Schriftlich B:</b> Ein schwarzes Auto und ein weißes Auto stehen in der Sonne. Welches wird meist stärker warm und warum?<textarea placeholder="Deine Antwort …"></textarea><details class="solution"><summary>Musterlösung anzeigen</summary><p>Das schwarze Auto wird meist stärker warm, weil dunkle Oberflächen einen größeren Anteil des sichtbaren Lichts absorbieren und die Energie in Wärme umgewandelt wird.</p></details></div>
+</div>
+</section>
+<section class="chapter" id="k2">
+<div class="chapter-head"><div class="num">2</div><div><h2>Schatten</h2><p>Schattenraum, Schattenbild, Strahlenmodell, Kern- und Halbschatten.</p></div></div>
+<p>Im <b>Strahlenmodell</b> stellen wir uns vor, dass sich Licht in einem gleichförmigen Medium geradlinig ausbreitet. Ein undurchsichtiger Gegenstand blockiert Lichtstrahlen. Hinter ihm entsteht ein Bereich, den bestimmte Lichtstrahlen nicht erreichen.</p>
+<div class="grid2"><div class="card"><h3>Schattenraum</h3><p>Der gesamte dreidimensionale Bereich hinter einem Hindernis, in den kein direktes Licht der betrachteten Lichtquelle gelangt.</p></div><div class="card"><h3>Schattenbild</h3><p>Die zweidimensionale dunkle Fläche, die entsteht, wenn der Schattenraum auf einen Schirm oder eine Wand trifft.</p></div></div>
+<h3>Kernschatten und Halbschatten</h3><p>Bei <b>mehreren Lichtquellen</b> kann ein Punkt von keiner, einer oder mehreren Lichtquellen beleuchtet werden. Im Kernschatten kommt Licht von <b>keiner</b> Quelle an. Im Halbschatten wird mindestens eine Quelle verdeckt, aber mindestens eine andere ist noch sichtbar.</p>
+<div class="note warn"><strong>Einfluss auf die Schattengröße:</strong> Je näher der Gegenstand an einer punktförmigen Lichtquelle steht, desto stärker spreizen sich die Randstrahlen hinter ihm auf und desto größer kann das Schattenbild auf einem entfernten Schirm werden. Auch ein größerer Gegenstand erzeugt unter gleichen Bedingungen einen größeren Schatten.</div>
+<h3>Ausprobieren: Schattengröße</h3>
+<div class="css-sim"><div class="sim-head"><span class="dot"></span>Interaktive Lernskizze</div><p class="sim-help">Einfach eine Auswahl antippen. Die Skizze wechselt sofort – kein JavaScript nötig.</p>
+<input checked="" class="state-input" id="sh-near" name="sh" type="radio"/><input class="state-input" id="sh-mid" name="sh" type="radio"/><input class="state-input" id="sh-far" name="sh" type="radio"/>
+<div class="choice-row"><label for="sh-near">Gegenstand nah an Lichtquelle</label><label for="sh-mid">mittlere Entfernung</label><label for="sh-far">nah am Schirm</label></div>
+<div class="state-stack">
+<div class="scene sh-near"><svg viewbox="0 0 720 300"><circle class="light" cx="65" cy="150" r="18"></circle><line class="obj" x1="190" x2="190" y1="110" y2="190"></line><line class="screen" x1="670" x2="670" y1="35" y2="265"></line><line stroke="#e89a00" stroke-width="3" x1="65" x2="670" y1="150" y2="35"></line><line stroke="#e89a00" stroke-width="3" x1="65" x2="670" y1="150" y2="265"></line><line class="shadow" x1="670" x2="670" y1="65" y2="235"></line><text class="svgtext" x="35" y="195">Licht</text><text class="svgtext" x="150" y="220">Gegenstand</text><text class="svgtext" x="620" y="285">Schirm</text></svg><div class="readout">Nah an der Lichtquelle → großer Schatten auf dem entfernten Schirm.</div></div>
+<div class="scene sh-mid"><svg viewbox="0 0 720 300"><circle class="light" cx="65" cy="150" r="18"></circle><line class="obj" x1="350" x2="350" y1="110" y2="190"></line><line class="screen" x1="670" x2="670" y1="35" y2="265"></line><line stroke="#e89a00" stroke-width="3" x1="65" x2="670" y1="150" y2="80"></line><line stroke="#e89a00" stroke-width="3" x1="65" x2="670" y1="150" y2="220"></line><line class="shadow" x1="670" x2="670" y1="98" y2="202"></line></svg><div class="readout">Mittlere Entfernung → der Schatten ist kleiner als zuvor.</div></div>
+<div class="scene sh-far"><svg viewbox="0 0 720 300"><circle class="light" cx="65" cy="150" r="18"></circle><line class="obj" x1="555" x2="555" y1="110" y2="190"></line><line class="screen" x1="670" x2="670" y1="35" y2="265"></line><line stroke="#e89a00" stroke-width="3" x1="65" x2="670" y1="150" y2="103"></line><line stroke="#e89a00" stroke-width="3" x1="65" x2="670" y1="150" y2="197"></line><line class="shadow" x1="670" x2="670" y1="112" y2="188"></line></svg><div class="readout">Nah am Schirm → der Schatten nähert sich der Größe des Gegenstands an.</div></div>
+</div></div>
+<div class="note good"><strong>Merke:</strong> Zur Schattenkonstruktion zeichnet man die <b>Randstrahlen</b> von der Lichtquelle gerade an den Außenkanten des Gegenstands vorbei.</div>
+<h3>Video</h3>
+<div class="video video-modern" data-video-id="ljEOxXbff2c" data-chapter="2">
+  <div class="video-visual"><span class="video-index">FILM 02 · KAPITEL 2</span><div class="video-play-icon" aria-hidden="true">▶</div><span class="video-visual-foot">Erklärvideo · online ansehen</span></div>
+  <div class="video-info"><div class="video-eyebrow">PASSEND ZU KAPITEL 2</div><h4>Licht und Schatten – Kern- und Halbschatten (musstewissen Physik)</h4><p>Anschauliche Wiederholung der wichtigsten Begriffe.</p>
+  <div class="video-actions"><a class="video-primary" href="https://www.youtube.com/watch?v=ljEOxXbff2c" target="_blank" rel="noopener">↗ Auf YouTube ansehen</a><button type="button" class="video-embed" hidden aria-expanded="false">Hier abspielen</button></div>
+  <small class="video-footnote">Internet erforderlich · Der direkte YouTube-Link funktioniert auch beim lokalen Öffnen der HTML-Datei.</small>
+  </div><div class="video-player" hidden></div></div>
+<div class="quiz"><h3>Übungen zu Kapitel 2</h3>
+<div class="css-mcq"><div class="question-title">4. Was ist ein Schattenbild?</div><div class="quiz-option"><input id="q4-a" name="q4" type="radio" value="a"/><label for="q4-a">der gesamte Raum hinter einem Gegenstand</label><div class="option-feedback bad">✗ Noch nicht. Lies den Merksatz bzw. die Erklärung direkt darüber noch einmal.</div></div><div class="quiz-option"><input id="q4-b" name="q4" type="radio" value="b"/><label for="q4-b">das Licht im Inneren einer Lampe</label><div class="option-feedback bad">✗ Noch nicht. Lies den Merksatz bzw. die Erklärung direkt darüber noch einmal.</div></div><div class="quiz-option"><input id="q4-c" name="q4" type="radio" value="c"/><label for="q4-c">der Schatten, der auf einer Fläche sichtbar wird</label><div class="option-feedback good">✓ Richtig. Gut erkannt.</div></div></div>
+<div class="css-mcq"><div class="question-title">5. Im Kernschatten bei zwei Lichtquellen …</div><div class="quiz-option"><input id="q5-a" name="q5" type="radio" value="a"/><label for="q5-a">erreicht keine der beiden Lichtquellen den Bereich direkt.</label><div class="option-feedback good">✓ Richtig. Gut erkannt.</div></div><div class="quiz-option"><input id="q5-b" name="q5" type="radio" value="b"/><label for="q5-b">erreicht genau eine Lichtquelle den Bereich.</label><div class="option-feedback bad">✗ Noch nicht. Lies den Merksatz bzw. die Erklärung direkt darüber noch einmal.</div></div><div class="quiz-option"><input id="q5-c" name="q5" type="radio" value="c"/><label for="q5-c">erreichen beide Lichtquellen den Bereich.</label><div class="option-feedback bad">✗ Noch nicht. Lies den Merksatz bzw. die Erklärung direkt darüber noch einmal.</div></div></div>
+<div class="css-mcq"><div class="question-title">6. Wie konstruiert man den Schatten einer punktförmigen Lichtquelle?</div><div class="quiz-option"><input id="q6-a" name="q6" type="radio" value="a"/><label for="q6-a">Man zeichnet Kreise um den Gegenstand.</label><div class="option-feedback bad">✗ Noch nicht. Lies den Merksatz bzw. die Erklärung direkt darüber noch einmal.</div></div><div class="quiz-option"><input id="q6-b" name="q6" type="radio" value="b"/><label for="q6-b">Man zeichnet Randstrahlen von der Quelle an den Kanten des Gegenstands vorbei.</label><div class="option-feedback good">✓ Richtig. Gut erkannt.</div></div><div class="quiz-option"><input id="q6-c" name="q6" type="radio" value="c"/><label for="q6-c">Man zeichnet nur das Lot.</label><div class="option-feedback bad">✗ Noch nicht. Lies den Merksatz bzw. die Erklärung direkt darüber noch einmal.</div></div></div>
+<div class="written"><b>Schriftlich A:</b> Erkläre den Unterschied zwischen Kernschatten und Halbschatten bei zwei Lampen.<textarea placeholder="Deine Antwort …"></textarea><details class="solution"><summary>Musterlösung anzeigen</summary><p>Kernschatten: Beide Lampen werden vom Hindernis verdeckt. Halbschatten: Eine Lampe ist verdeckt, die andere kann den Bereich noch beleuchten.</p></details></div>
+<div class="written"><b>Schriftlich B:</b> Beschreibe, wie du mit Bleistift und Lineal den Schatten eines Gegenstands auf einem Schirm konstruierst.<textarea placeholder="Deine Antwort …"></textarea><details class="solution"><summary>Musterlösung anzeigen</summary><p>Von der punktförmigen Lichtquelle aus zeichne ich zwei gerade Randstrahlen so, dass sie gerade an der oberen und unteren Kante des Gegenstands vorbeigehen. Dort, wo diese Strahlen den Schirm treffen, liegen die Grenzen des Schattenbilds.</p></details></div>
+</div>
+</section>
+<section class="chapter" id="k3">
+<div class="chapter-head"><div class="num">3</div><div><h2>Grundlagen zum Reflexionsgesetz</h2><p>Einfallswinkel, Reflexionswinkel, Lot und Strahlenkonstruktion.</p></div></div>
+<p>Trifft ein Lichtstrahl auf eine spiegelnde Fläche, wird er reflektiert. Um den Verlauf eindeutig zu beschreiben, zeichnet man am Auftreffpunkt das <span class="term">Lot</span>: eine gedachte Linie, die <b>senkrecht</b> auf der Spiegeloberfläche steht.</p>
+<div class="note"><strong>Reflexionsgesetz:</strong> Der Einfallswinkel ist genauso groß wie der Reflexionswinkel. Beide Winkel werden <b>zum Lot</b> gemessen – nicht zur Spiegeloberfläche.</div>
+<div class="formula">α = β</div>
+<p><b>α</b> = Einfallswinkel, <b>β</b> = Reflexionswinkel.</p>
+<h3>Ausprobieren: Reflexionswinkel verändern</h3>
+<div class="css-sim"><div class="sim-head"><span class="dot"></span>Interaktive Lernskizze</div><p class="sim-help">Einfach eine Auswahl antippen. Die Skizze wechselt sofort – kein JavaScript nötig.</p>
+<input class="state-input" id="rf-20" name="rf" type="radio"/><input checked="" class="state-input" id="rf-45" name="rf" type="radio"/><input class="state-input" id="rf-70" name="rf" type="radio"/>
+<div class="choice-row"><label for="rf-20">α = 20°</label><label for="rf-45">α = 45°</label><label for="rf-70">α = 70°</label></div>
+<div class="state-stack">
+<div class="scene rf-20"><svg viewbox="0 0 720 330"><line class="surface" x1="80" x2="640" y1="250" y2="250"></line><line class="normal" x1="360" x2="360" y1="35" y2="300"></line><line class="ray-in" x1="285" x2="360" y1="44" y2="250"></line><line class="ray-ref" x1="360" x2="435" y1="250" y2="44"></line><text class="svgstrong" x="385" y="120">20°</text></svg><div class="readout">α = β = 20°. Beide Winkel werden zum Lot gemessen.</div></div>
+<div class="scene rf-45"><svg viewbox="0 0 720 330"><line class="surface" x1="80" x2="640" y1="250" y2="250"></line><line class="normal" x1="360" x2="360" y1="35" y2="300"></line><line class="ray-in" x1="205" x2="360" y1="95" y2="250"></line><line class="ray-ref" x1="360" x2="515" y1="250" y2="95"></line><text class="svgstrong" x="400" y="155">45°</text></svg><div class="readout">α = β = 45°. Der reflektierte Strahl ist spiegelbildlich zum einfallenden Strahl bezüglich des Lots.</div></div>
+<div class="scene rf-70"><svg viewbox="0 0 720 330"><line class="surface" x1="80" x2="640" y1="250" y2="250"></line><line class="normal" x1="360" x2="360" y1="35" y2="300"></line><line class="ray-in" x1="154" x2="360" y1="175" y2="250"></line><line class="ray-ref" x1="360" x2="566" y1="250" y2="175"></line><text class="svgstrong" x="440" y="190">70°</text></svg><div class="readout">α = β = 70°. Je größer der Einfallswinkel zum Lot, desto flacher verläuft der Strahl zur Oberfläche.</div></div>
+</div></div>
+<h3>So löst du Konstruktionsaufgaben</h3>
+<ol><li>Auftreffpunkt des einfallenden Strahls markieren.</li><li>Lot senkrecht zur Oberfläche einzeichnen.</li><li>Einfallswinkel α zwischen Strahl und Lot bestimmen.</li><li>Auf der anderen Seite des Lots denselben Winkel β abtragen.</li><li>Reflektierten Strahl mit Pfeil in Ausbreitungsrichtung zeichnen.</li></ol>
+<div class="note warn"><strong>Typischer Fehler:</strong> Winkel zur Spiegeloberfläche messen. In der Physik werden Einfalls- und Reflexionswinkel immer zum Lot gemessen.</div>
+<h3>Video</h3>
+<div class="video video-modern" data-video-id="vCkE5V5wpqQ" data-chapter="3">
+  <div class="video-visual"><span class="video-index">FILM 03 · KAPITEL 3</span><div class="video-play-icon" aria-hidden="true">▶</div><span class="video-visual-foot">Erklärvideo · online ansehen</span></div>
+  <div class="video-info"><div class="video-eyebrow">PASSEND ZU KAPITEL 3</div><h4>Reflexionsgesetz – einfach erklärt</h4><p>Wiederholt Lot, Einfallswinkel und Reflexionswinkel.</p>
+  <div class="video-actions"><a class="video-primary" href="https://www.youtube.com/watch?v=vCkE5V5wpqQ" target="_blank" rel="noopener">↗ Auf YouTube ansehen</a><button type="button" class="video-embed" hidden aria-expanded="false">Hier abspielen</button></div>
+  <small class="video-footnote">Internet erforderlich · Der direkte YouTube-Link funktioniert auch beim lokalen Öffnen der HTML-Datei.</small>
+  </div><div class="video-player" hidden></div></div>
+<div class="quiz"><h3>Übungen zu Kapitel 3</h3>
+<div class="css-mcq"><div class="question-title">7. Ein Lichtstrahl trifft mit α = 42° auf einen Spiegel. Wie groß ist β?</div><div class="quiz-option"><input id="q7-a" name="q7" type="radio" value="a"/><label for="q7-a">42°</label><div class="option-feedback good">✓ Richtig. Gut erkannt.</div></div><div class="quiz-option"><input id="q7-b" name="q7" type="radio" value="b"/><label for="q7-b">48°</label><div class="option-feedback bad">✗ Noch nicht. Lies den Merksatz bzw. die Erklärung direkt darüber noch einmal.</div></div><div class="quiz-option"><input id="q7-c" name="q7" type="radio" value="c"/><label for="q7-c">84°</label><div class="option-feedback bad">✗ Noch nicht. Lies den Merksatz bzw. die Erklärung direkt darüber noch einmal.</div></div></div>
+<div class="css-mcq"><div class="question-title">8. Was ist das Lot?</div><div class="quiz-option"><input id="q8-a" name="q8" type="radio" value="a"/><label for="q8-a">der reflektierte Strahl</label><div class="option-feedback bad">✗ Noch nicht. Lies den Merksatz bzw. die Erklärung direkt darüber noch einmal.</div></div><div class="quiz-option"><input id="q8-b" name="q8" type="radio" value="b"/><label for="q8-b">eine Linie parallel zum Spiegel</label><div class="option-feedback bad">✗ Noch nicht. Lies den Merksatz bzw. die Erklärung direkt darüber noch einmal.</div></div><div class="quiz-option"><input id="q8-c" name="q8" type="radio" value="c"/><label for="q8-c">eine Senkrechte zur Oberfläche am Auftreffpunkt</label><div class="option-feedback good">✓ Richtig. Gut erkannt.</div></div></div>
+<div class="css-mcq"><div class="question-title">9. Zu welcher Linie wird der Einfallswinkel gemessen?</div><div class="quiz-option"><input id="q9-a" name="q9" type="radio" value="a"/><label for="q9-a">zur Spiegelkante</label><div class="option-feedback bad">✗ Noch nicht. Lies den Merksatz bzw. die Erklärung direkt darüber noch einmal.</div></div><div class="quiz-option"><input id="q9-b" name="q9" type="radio" value="b"/><label for="q9-b">zum Lot</label><div class="option-feedback good">✓ Richtig. Gut erkannt.</div></div><div class="quiz-option"><input id="q9-c" name="q9" type="radio" value="c"/><label for="q9-c">zur Waagerechten</label><div class="option-feedback bad">✗ Noch nicht. Lies den Merksatz bzw. die Erklärung direkt darüber noch einmal.</div></div></div>
+<div class="written"><b>Schriftlich A:</b> Ein Strahl bildet mit der Spiegeloberfläche einen Winkel von 25°. Bestimme den Einfallswinkel zum Lot und den Reflexionswinkel.<textarea placeholder="Deine Antwort …"></textarea><details class="solution"><summary>Musterlösung anzeigen</summary><p>Das Lot steht 90° zur Spiegeloberfläche. Daher ist α = 90° − 25° = 65°. Nach dem Reflexionsgesetz gilt β = 65°.</p></details></div>
+<div class="written"><b>Schriftlich B:</b> Beschreibe in fünf Schritten, wie du einen reflektierten Lichtstrahl konstruierst.<textarea placeholder="Deine Antwort …"></textarea><details class="solution"><summary>Musterlösung anzeigen</summary><p>Auftreffpunkt markieren, Lot zeichnen, Einfallswinkel zum Lot bestimmen, auf der anderen Seite denselben Winkel abtragen, reflektierten Strahl mit Richtungspfeil zeichnen.</p></details></div>
+</div>
+</section>
+<section class="chapter" id="k4">
+<div class="chapter-head"><div class="num">4</div><div><h2>Eigenschaften des Spiegelbilds</h2><p>Virtuelles Bild, Ort, Größe, Abstand und die scheinbare „Vertauschung“.</p></div></div>
+<p>Beim ebenen Spiegel gelangen reflektierte Lichtstrahlen in unsere Augen. Unser Gehirn nimmt an, dass sich Licht geradlinig ausbreitet, und verlängert die Strahlen gedanklich hinter den Spiegel. Dort scheint das Bild zu liegen.</p>
+<div class="note"><strong>Virtuelles Bild:</strong> Hinter dem Spiegel befindet sich kein echtes Lichtbild, das man auf einem Schirm auffangen könnte. Das Bild entsteht nur als scheinbarer Ausgangspunkt der reflektierten Strahlen.</div>
+<ul><li>Das Spiegelbild ist <b>gleich groß</b> wie der Gegenstand.</li><li>Bild und Gegenstand haben den <b>gleichen Abstand</b> zur Spiegelebene.</li><li>Die Verbindungslinie zwischen einem Gegenstandspunkt und seinem Bildpunkt steht <b>senkrecht</b> auf der Spiegelebene.</li><li>Das Bild ist aufrecht und virtuell.</li></ul>
+<h3>Ist der Spiegel wirklich „seitenverkehrt“?</h3>
+<p>Im Alltag sagt man oft „links und rechts sind vertauscht“. Genauer ist: Ein ebener Spiegel vertauscht die Richtung <b>vorne ↔ hinten</b>. Wenn du deine rechte Hand hebst, liegt auch das Bild dieser Hand auf deiner rechten Seite. Es wirkt nur so, als hätte die Person im Spiegel die andere Hand gehoben, weil wir uns vorstellen, die Person hätte sich zu uns umgedreht.</p>
+<h3>Ausprobieren: Bildabstand = Gegenstandsabstand</h3>
+<div class="css-sim"><div class="sim-head"><span class="dot"></span>Interaktive Lernskizze</div><p class="sim-help">Einfach eine Auswahl antippen. Die Skizze wechselt sofort – kein JavaScript nötig.</p>
+<input class="state-input" id="mi-70" name="mi" type="radio"/><input checked="" class="state-input" id="mi-120" name="mi" type="radio"/><input class="state-input" id="mi-180" name="mi" type="radio"/>
+<div class="choice-row"><label for="mi-70">70 Einheiten</label><label for="mi-120">120 Einheiten</label><label for="mi-180">180 Einheiten</label></div>
+<div class="state-stack">
+<div class="scene mi-70"><svg viewbox="0 0 720 300"><line class="mirror" x1="360" x2="360" y1="35" y2="265"></line><circle cx="290" cy="105" fill="none" r="20" stroke="currentColor" stroke-width="6"></circle><line class="person" x1="290" x2="290" y1="128" y2="215"></line><circle cx="430" cy="105" fill="none" opacity=".42" r="20" stroke="currentColor" stroke-width="5"></circle><line class="ghost" x1="430" x2="430" y1="128" y2="215"></line><line stroke="currentColor" stroke-width="2" x1="290" x2="430" y1="245" y2="245"></line><text class="svgtext" x="275" y="275">70</text><text class="svgtext" x="418" y="275">70</text></svg><div class="readout">70 vor dem Spiegel = 70 hinter dem Spiegel.</div></div>
+<div class="scene mi-120"><svg viewbox="0 0 720 300"><line class="mirror" x1="360" x2="360" y1="35" y2="265"></line><circle cx="240" cy="105" fill="none" r="20" stroke="currentColor" stroke-width="6"></circle><line class="person" x1="240" x2="240" y1="128" y2="215"></line><circle cx="480" cy="105" fill="none" opacity=".42" r="20" stroke="currentColor" stroke-width="5"></circle><line class="ghost" x1="480" x2="480" y1="128" y2="215"></line><text class="svgstrong" x="285" y="275">120 = 120</text></svg><div class="readout">Der Bildabstand ist genauso groß wie der Gegenstandsabstand.</div></div>
+<div class="scene mi-180"><svg viewbox="0 0 720 300"><line class="mirror" x1="360" x2="360" y1="35" y2="265"></line><circle cx="180" cy="105" fill="none" r="20" stroke="currentColor" stroke-width="6"></circle><line class="person" x1="180" x2="180" y1="128" y2="215"></line><circle cx="540" cy="105" fill="none" opacity=".42" r="20" stroke="currentColor" stroke-width="5"></circle><line class="ghost" x1="540" x2="540" y1="128" y2="215"></line><text class="svgstrong" x="285" y="275">180 = 180</text></svg><div class="readout">Auch bei größerem Abstand bleibt die Regel gleich: Bild und Gegenstand liegen symmetrisch zur Spiegelebene.</div></div>
+</div></div>
+<div class="note good"><strong>Merke:</strong> Gegenstand und Bild sind bezüglich der Spiegelebene symmetrisch.</div>
+<h3>Video</h3>
+<div class="video video-modern" data-video-id="Al4ap4UtaoY" data-chapter="4">
+  <div class="video-visual"><span class="video-index">FILM 04 · KAPITEL 4</span><div class="video-play-icon" aria-hidden="true">▶</div><span class="video-visual-foot">Erklärvideo · online ansehen</span></div>
+  <div class="video-info"><div class="video-eyebrow">PASSEND ZU KAPITEL 4</div><h4>Ebener Spiegel – Eigenschaften und Bildentstehung</h4><p>Behandelt das virtuelle Bild und die Frage „seiten- oder tiefenverkehrt?“.</p>
+  <div class="video-actions"><a class="video-primary" href="https://www.youtube.com/watch?v=Al4ap4UtaoY" target="_blank" rel="noopener">↗ Auf YouTube ansehen</a><button type="button" class="video-embed" hidden aria-expanded="false">Hier abspielen</button></div>
+  <small class="video-footnote">Internet erforderlich · Der direkte YouTube-Link funktioniert auch beim lokalen Öffnen der HTML-Datei.</small>
+  </div><div class="video-player" hidden></div></div>
+<div class="quiz"><h3>Übungen zu Kapitel 4</h3>
+<div class="css-mcq"><div class="question-title">10. Eine Person steht 1,5 m vor einem ebenen Spiegel. Wie weit liegt ihr Bild hinter der Spiegelebene?</div><div class="quiz-option"><input id="q10-a" name="q10" type="radio" value="a"/><label for="q10-a">0,75 m</label><div class="option-feedback bad">✗ Noch nicht. Lies den Merksatz bzw. die Erklärung direkt darüber noch einmal.</div></div><div class="quiz-option"><input id="q10-b" name="q10" type="radio" value="b"/><label for="q10-b">1,5 m</label><div class="option-feedback good">✓ Richtig. Gut erkannt.</div></div><div class="quiz-option"><input id="q10-c" name="q10" type="radio" value="c"/><label for="q10-c">3,0 m</label><div class="option-feedback bad">✗ Noch nicht. Lies den Merksatz bzw. die Erklärung direkt darüber noch einmal.</div></div></div>
+<div class="css-mcq"><div class="question-title">11. Warum heißt das Bild im ebenen Spiegel virtuell?</div><div class="quiz-option"><input id="q11-a" name="q11" type="radio" value="a"/><label for="q11-a">Weil es kleiner als der Gegenstand ist.</label><div class="option-feedback bad">✗ Noch nicht. Lies den Merksatz bzw. die Erklärung direkt darüber noch einmal.</div></div><div class="quiz-option"><input id="q11-b" name="q11" type="radio" value="b"/><label for="q11-b">Weil es aus farbigem Licht besteht.</label><div class="option-feedback bad">✗ Noch nicht. Lies den Merksatz bzw. die Erklärung direkt darüber noch einmal.</div></div><div class="quiz-option"><input id="q11-c" name="q11" type="radio" value="c"/><label for="q11-c">Weil sich die Lichtstrahlen nicht wirklich hinter dem Spiegel treffen.</label><div class="option-feedback good">✓ Richtig. Gut erkannt.</div></div></div>
+<div class="css-mcq"><div class="question-title">12. Welche Aussage ist für einen ebenen Spiegel richtig?</div><div class="quiz-option"><input id="q12-a" name="q12" type="radio" value="a"/><label for="q12-a">Bildgröße = Gegenstandsgröße.</label><div class="option-feedback good">✓ Richtig. Gut erkannt.</div></div><div class="quiz-option"><input id="q12-b" name="q12" type="radio" value="b"/><label for="q12-b">Das Bild ist immer halb so groß.</label><div class="option-feedback bad">✗ Noch nicht. Lies den Merksatz bzw. die Erklärung direkt darüber noch einmal.</div></div><div class="quiz-option"><input id="q12-c" name="q12" type="radio" value="c"/><label for="q12-c">Das Bild wird mit größerem Abstand physikalisch kleiner.</label><div class="option-feedback bad">✗ Noch nicht. Lies den Merksatz bzw. die Erklärung direkt darüber noch einmal.</div></div></div>
+<div class="written"><b>Schriftlich A:</b> Erkläre, warum man ein virtuelles Spiegelbild nicht auf einem Blatt Papier hinter dem Spiegel auffangen kann.<textarea placeholder="Deine Antwort …"></textarea><details class="solution"><summary>Musterlösung anzeigen</summary><p>Hinter dem Spiegel laufen keine echten Lichtstrahlen zusammen. Die reflektierten Strahlen befinden sich vor dem Spiegel; das Auge verlängert sie nur gedanklich nach hinten.</p></details></div>
+<div class="written"><b>Schriftlich B:</b> Ein Punkt A liegt 4 cm vor einem Spiegel. Beschreibe genau, wo sein Bildpunkt A' liegt.<textarea placeholder="Deine Antwort …"></textarea><details class="solution"><summary>Musterlösung anzeigen</summary><p>A' liegt 4 cm hinter der Spiegelebene. Die Strecke AA' steht senkrecht auf dem Spiegel; der Spiegel halbiert die Strecke.</p></details></div>
+</div>
+</section>
+<section class="chapter" id="k5">
+<div class="chapter-head"><div class="num">5</div><div><h2>Konstruktion von Spiegelbildern mit dem Reflexionsgesetz</h2><p>Bildpunkte konstruieren und die Mindesthöhe eines Ganzkörperspiegels verstehen.</p></div></div>
+<h3>Spiegelbild eines Punktes konstruieren</h3>
+<ol><li>Vom Gegenstandspunkt eine Senkrechte auf die Spiegelebene zeichnen.</li><li>Abstand des Punktes zum Spiegel messen.</li><li>Denselben Abstand auf der anderen Seite des Spiegels abtragen. Dort liegt der Bildpunkt.</li><li>Für einen ganzen Gegenstand mehrere charakteristische Punkte spiegeln und verbinden.</li></ol>
+<p>Diese geometrische Spiegelung entspricht genau dem Strahlengang nach dem Reflexionsgesetz: Verlängert man reflektierte Strahlen rückwärts, schneiden sich ihre Verlängerungen im Bildpunkt.</p>
+<h3>Wie groß muss ein Ganzkörperspiegel sein?</h3>
+<div class="note"><strong>Überraschendes Ergebnis:</strong> Damit eine Person sich von Kopf bis Fuß sehen kann, muss der Spiegel nur <b>halb so hoch wie die Person</b> sein. Der notwendige Spiegel wird nicht größer, wenn die Person weiter vom Spiegel weggeht.</div>
+<p>Warum? Ein Lichtstrahl vom Scheitel muss so reflektiert werden, dass er ins Auge gelangt. Der benötigte obere Spiegelrand liegt genau halb zwischen Augenhöhe und Scheitelhöhe. Für die Füße liegt der benötigte untere Rand halb zwischen Augen und Fußboden. Der Abstand zwischen diesen beiden Punkten beträgt die halbe Körpergröße.</p>
+<h3>Ausprobieren: Mindesthöhe des Spiegels</h3>
+<div class="css-sim"><div class="sim-head"><span class="dot"></span>Interaktive Lernskizze</div><p class="sim-help">Einfach eine Auswahl antippen. Die Skizze wechselt sofort – kein JavaScript nötig.</p>
+<input class="state-input" id="mh-150" name="mh" type="radio"/><input checked="" class="state-input" id="mh-170" name="mh" type="radio"/><input class="state-input" id="mh-190" name="mh" type="radio"/>
+<div class="choice-row"><label for="mh-150">Person 150 cm</label><label for="mh-170">Person 170 cm</label><label for="mh-190">Person 190 cm</label></div>
+<div class="state-stack">
+<div class="scene mh-150"><svg viewbox="0 0 720 290"><line class="person" x1="190" x2="190" y1="70" y2="240"></line><circle cx="190" cy="50" fill="none" r="20" stroke="currentColor" stroke-width="7"></circle><line class="mirror" x1="500" x2="500" y1="105" y2="220"></line><text class="svgstrong" x="530" y="160">75 cm</text></svg><div class="readout">150 cm Körpergröße → mindestens 75 cm Spiegelhöhe.</div></div>
+<div class="scene mh-170"><svg viewbox="0 0 720 290"><line class="person" x1="190" x2="190" y1="55" y2="240"></line><circle cx="190" cy="35" fill="none" r="20" stroke="currentColor" stroke-width="7"></circle><line class="mirror" x1="500" x2="500" y1="90" y2="220"></line><text class="svgstrong" x="530" y="160">85 cm</text></svg><div class="readout">170 cm Körpergröße → mindestens 85 cm Spiegelhöhe.</div></div>
+<div class="scene mh-190"><svg viewbox="0 0 720 290"><line class="person" x1="190" x2="190" y1="40" y2="240"></line><circle cx="190" cy="22" fill="none" r="20" stroke="currentColor" stroke-width="7"></circle><line class="mirror" x1="500" x2="500" y1="75" y2="220"></line><text class="svgstrong" x="530" y="160">95 cm</text></svg><div class="readout">190 cm Körpergröße → mindestens 95 cm Spiegelhöhe. Der Abstand der Person vom Spiegel ändert diese Mindesthöhe nicht.</div></div>
+</div></div>
+<div class="note warn"><strong>Typischer Denkfehler:</strong> „Wenn ich weiter weg gehe, brauche ich einen kleineren Spiegel.“ Nein. Zwar erscheint das Bild kleiner, aber die geometrisch benötigten Reflexionspunkte am Spiegel bleiben so verteilt, dass die Mindesthöhe H/2 beträgt.</div>
+<h3>Video</h3>
+<div class="video video-modern" data-video-id="eYul0ZJACOw" data-chapter="5">
+  <div class="video-visual"><span class="video-index">FILM 05 · KAPITEL 5</span><div class="video-play-icon" aria-hidden="true">▶</div><span class="video-visual-foot">Erklärvideo · online ansehen</span></div>
+  <div class="video-info"><div class="video-eyebrow">PASSEND ZU KAPITEL 5</div><h4>Spiegelbilder: Konstruktion und Strahlengang</h4><p>Zeigt, wie Bildpunkte und Strahlenwege konstruiert werden.</p>
+  <div class="video-actions"><a class="video-primary" href="https://www.youtube.com/watch?v=eYul0ZJACOw" target="_blank" rel="noopener">↗ Auf YouTube ansehen</a><button type="button" class="video-embed" hidden aria-expanded="false">Hier abspielen</button></div>
+  <small class="video-footnote">Internet erforderlich · Der direkte YouTube-Link funktioniert auch beim lokalen Öffnen der HTML-Datei.</small>
+  </div><div class="video-player" hidden></div></div>
+<div class="quiz"><h3>Übungen zu Kapitel 5</h3>
+<div class="css-mcq"><div class="question-title">13. Eine 170 cm große Person möchte sich vollständig sehen. Wie hoch muss ein passend angebrachter ebener Spiegel mindestens sein?</div><div class="quiz-option"><input id="q13-a" name="q13" type="radio" value="a"/><label for="q13-a">85 cm</label><div class="option-feedback good">✓ Richtig. Gut erkannt.</div></div><div class="quiz-option"><input id="q13-b" name="q13" type="radio" value="b"/><label for="q13-b">170 cm</label><div class="option-feedback bad">✗ Noch nicht. Lies den Merksatz bzw. die Erklärung direkt darüber noch einmal.</div></div><div class="quiz-option"><input id="q13-c" name="q13" type="radio" value="c"/><label for="q13-c">340 cm</label><div class="option-feedback bad">✗ Noch nicht. Lies den Merksatz bzw. die Erklärung direkt darüber noch einmal.</div></div></div>
+<div class="css-mcq"><div class="question-title">14. Was passiert mit der minimal nötigen Spiegelhöhe, wenn man weiter vom Spiegel weggeht?</div><div class="quiz-option"><input id="q14-a" name="q14" type="radio" value="a"/><label for="q14-a">Sie wird größer.</label><div class="option-feedback bad">✗ Noch nicht. Lies den Merksatz bzw. die Erklärung direkt darüber noch einmal.</div></div><div class="quiz-option"><input id="q14-b" name="q14" type="radio" value="b"/><label for="q14-b">Sie wird kleiner.</label><div class="option-feedback bad">✗ Noch nicht. Lies den Merksatz bzw. die Erklärung direkt darüber noch einmal.</div></div><div class="quiz-option"><input id="q14-c" name="q14" type="radio" value="c"/><label for="q14-c">Sie bleibt gleich.</label><div class="option-feedback good">✓ Richtig. Gut erkannt.</div></div></div>
+<div class="css-mcq"><div class="question-title">15. Welche Linie verbindet einen Gegenstandspunkt mit seinem Spiegelbild?</div><div class="quiz-option"><input id="q15-a" name="q15" type="radio" value="a"/><label for="q15-a">eine beliebig schräge Linie</label><div class="option-feedback bad">✗ Noch nicht. Lies den Merksatz bzw. die Erklärung direkt darüber noch einmal.</div></div><div class="quiz-option"><input id="q15-b" name="q15" type="radio" value="b"/><label for="q15-b">eine Senkrechte zur Spiegelebene</label><div class="option-feedback good">✓ Richtig. Gut erkannt.</div></div><div class="quiz-option"><input id="q15-c" name="q15" type="radio" value="c"/><label for="q15-c">eine Parallele zur Spiegelebene</label><div class="option-feedback bad">✗ Noch nicht. Lies den Merksatz bzw. die Erklärung direkt darüber noch einmal.</div></div></div>
+<div class="written"><b>Schriftlich A:</b> Eine Schülerin ist 1,64 m groß. Wie hoch muss ihr Spiegel mindestens sein? Begründe.<textarea placeholder="Deine Antwort …"></textarea><details class="solution"><summary>Musterlösung anzeigen</summary><p>Mindestens 0,82 m = 82 cm. Bei einem korrekt positionierten ebenen Spiegel genügt die halbe Körpergröße.</p></details></div>
+<div class="written"><b>Schriftlich B:</b> Erkläre, wie du das Spiegelbild eines Dreiecks konstruierst, wenn die Spiegelebene eingezeichnet ist.<textarea placeholder="Deine Antwort …"></textarea><details class="solution"><summary>Musterlösung anzeigen</summary><p>Ich spiegele jeden der drei Eckpunkte: durch den Eckpunkt eine Senkrechte zum Spiegel zeichnen, Abstand messen und auf der anderen Seite gleich weit abtragen. Danach die drei Bildpunkte in derselben Reihenfolge verbinden.</p></details></div>
+</div>
+</section>
+<section class="chapter" id="k6">
+<div class="chapter-head"><div class="num">6</div><div><h2>Phänomen der Lichtbrechung</h2><p>Warum Licht an der Grenze zwischen zwei Medien seine Richtung ändert.</p></div></div>
+<p>Wenn Licht schräg von einem transparenten Medium in ein anderes übergeht, ändert sich seine Ausbreitungsgeschwindigkeit. Dadurch ändert sich meist auch seine Richtung: Das Licht wird <span class="term">gebrochen</span>.</p>
+<div class="grid2">
+<div class="card"><h3>Optisch dünn → optisch dicht</h3><p>Beispiel: Luft → Glas. Der gebrochene Strahl wird <b>zum Lot hin</b> gebrochen.</p><p><b>Folge:</b> α &gt; β.</p></div>
+<div class="card"><h3>Optisch dicht → optisch dünn</h3><p>Beispiel: Glas → Luft. Der gebrochene Strahl wird <b>vom Lot weg</b> gebrochen.</p><p><b>Folge:</b> α &lt; β, solange noch Brechung stattfindet.</p></div>
+</div>
+<div class="note"><strong>Wichtig:</strong> Fällt Licht genau senkrecht auf die Grenzfläche (α = 0°), ändert es seine Richtung nicht. Die Geschwindigkeit kann sich trotzdem ändern.</div>
+<h3>Ausprobieren: Brechung zwischen Medien</h3>
+<div class="css-sim"><div class="sim-head"><span class="dot"></span>Interaktive Lernskizze</div><p class="sim-help">Einfach eine Auswahl antippen. Die Skizze wechselt sofort – kein JavaScript nötig.</p>
+<input checked="" class="state-input" id="br-airglass" name="br" type="radio"/><input class="state-input" id="br-glassair" name="br" type="radio"/><input class="state-input" id="br-waterair" name="br" type="radio"/>
+<div class="choice-row"><label for="br-airglass">Luft → Glas</label><label for="br-glassair">Glas → Luft</label><label for="br-waterair">Wasser → Luft</label></div>
+<div class="state-stack">
+<div class="scene br-airglass"><svg viewbox="0 0 720 360"><rect class="medium1" height="180" width="720" x="0" y="0"></rect><rect class="medium2" height="180" width="720" x="0" y="180"></rect><line class="surface" x1="0" x2="720" y1="180" y2="180"></line><line class="normal" x1="360" x2="360" y1="25" y2="335"></line><line class="ray-in" x1="200" x2="360" y1="55" y2="180"></line><line class="ray-out" x1="360" x2="455" y1="180" y2="330"></line><text class="svgstrong" x="25" y="42">Luft</text><text class="svgstrong" x="25" y="225">Glas</text><text class="svgtext" x="455" y="290">zum Lot</text></svg><div class="readout">Optisch dünner → dichter: Der Lichtstrahl wird zum Lot hin gebrochen (β &lt; α).</div></div>
+<div class="scene br-glassair"><svg viewbox="0 0 720 360"><rect class="medium1" height="180" width="720" x="0" y="0"></rect><rect class="medium2" height="180" width="720" x="0" y="180"></rect><line class="surface" x1="0" x2="720" y1="180" y2="180"></line><line class="normal" x1="360" x2="360" y1="25" y2="335"></line><line class="ray-in" x1="285" x2="360" y1="330" y2="180"></line><line class="ray-out" x1="360" x2="555" y1="180" y2="70"></line><text class="svgstrong" x="25" y="42">Luft</text><text class="svgstrong" x="25" y="225">Glas</text><text class="svgtext" x="475" y="90">vom Lot weg</text></svg><div class="readout">Optisch dichter → dünner: Der Lichtstrahl wird vom Lot weg gebrochen (β &gt; α).</div></div>
+<div class="scene br-waterair"><svg viewbox="0 0 720 360"><rect class="medium1" height="180" width="720" x="0" y="0"></rect><rect class="medium2" height="180" width="720" x="0" y="180"></rect><line class="surface" x1="0" x2="720" y1="180" y2="180"></line><line class="normal" x1="360" x2="360" y1="25" y2="335"></line><line class="ray-in" x1="270" x2="360" y1="330" y2="180"></line><line class="ray-out" x1="360" x2="515" y1="180" y2="60"></line><text class="svgstrong" x="25" y="42">Luft</text><text class="svgstrong" x="25" y="225">Wasser</text></svg><div class="readout">Wasser → Luft: ebenfalls vom Lot weg, weil Wasser optisch dichter als Luft ist.</div></div>
+</div></div>
+<h3>Konstruktionsaufgaben mit Brechungsdiagramm</h3>
+<p>Wenn in der Arbeit ein Brechungsdiagramm vorgegeben ist, musst du meist nicht rechnen. Vorgehen:</p>
+<ol><li>Lot an der Grenzfläche einzeichnen.</li><li>Einfallswinkel α <b>zum Lot</b> messen.</li><li>Im vorgegebenen Diagramm den passenden Brechungswinkel β ablesen.</li><li>β auf der anderen Seite des Lots im zweiten Medium abtragen.</li><li>Gebrochenen Strahl zeichnen.</li></ol>
+<div class="note good"><strong>Plausibilitätscheck:</strong> Dünn → dicht: Strahl näher ans Lot. Dicht → dünn: Strahl weiter vom Lot weg. Wenn deine Zeichnung das Gegenteil zeigt, stimmt etwas nicht.</div>
+<h3>Video</h3>
+<div class="video video-modern" data-video-id="mv9wtMmFc2M" data-chapter="6">
+  <div class="video-visual"><span class="video-index">FILM 06 · KAPITEL 6</span><div class="video-play-icon" aria-hidden="true">▶</div><span class="video-visual-foot">Erklärvideo · online ansehen</span></div>
+  <div class="video-info"><div class="video-eyebrow">PASSEND ZU KAPITEL 6</div><h4>Lichtbrechung und Trugbilder</h4><p>Sehr anschauliche Erklärung der Richtungsänderung an Grenzflächen.</p>
+  <div class="video-actions"><a class="video-primary" href="https://www.youtube.com/watch?v=mv9wtMmFc2M" target="_blank" rel="noopener">↗ Auf YouTube ansehen</a><button type="button" class="video-embed" hidden aria-expanded="false">Hier abspielen</button></div>
+  <small class="video-footnote">Internet erforderlich · Der direkte YouTube-Link funktioniert auch beim lokalen Öffnen der HTML-Datei.</small>
+  </div><div class="video-player" hidden></div></div>
+<div class="quiz"><h3>Übungen zu Kapitel 6</h3>
+<div class="css-mcq"><div class="question-title">16. Licht geht schräg von Luft in Glas. Was geschieht?</div><div class="quiz-option"><input id="q16-a" name="q16" type="radio" value="a"/><label for="q16-a">Es wird vom Lot weg gebrochen.</label><div class="option-feedback bad">✗ Noch nicht. Lies den Merksatz bzw. die Erklärung direkt darüber noch einmal.</div></div><div class="quiz-option"><input id="q16-b" name="q16" type="radio" value="b"/><label for="q16-b">Es wird zum Lot hin gebrochen.</label><div class="option-feedback good">✓ Richtig. Gut erkannt.</div></div><div class="quiz-option"><input id="q16-c" name="q16" type="radio" value="c"/><label for="q16-c">Es wird immer vollständig reflektiert.</label><div class="option-feedback bad">✗ Noch nicht. Lies den Merksatz bzw. die Erklärung direkt darüber noch einmal.</div></div></div>
+<div class="css-mcq"><div class="question-title">17. Bei einem Übergang optisch dünn → optisch dicht gilt typischerweise …</div><div class="quiz-option"><input id="q17-a" name="q17" type="radio" value="a"/><label for="q17-a">α &gt; β</label><div class="option-feedback good">✓ Richtig. Gut erkannt.</div></div><div class="quiz-option"><input id="q17-b" name="q17" type="radio" value="b"/><label for="q17-b">α &lt; β</label><div class="option-feedback bad">✗ Noch nicht. Lies den Merksatz bzw. die Erklärung direkt darüber noch einmal.</div></div><div class="quiz-option"><input id="q17-c" name="q17" type="radio" value="c"/><label for="q17-c">α ist immer 90°.</label><div class="option-feedback bad">✗ Noch nicht. Lies den Merksatz bzw. die Erklärung direkt darüber noch einmal.</div></div></div>
+<div class="css-mcq"><div class="question-title">18. Ein Lichtstrahl trifft senkrecht auf eine Glasfläche. Wie verläuft er?</div><div class="quiz-option"><input id="q18-a" name="q18" type="radio" value="a"/><label for="q18-a">Er biegt stark nach links ab.</label><div class="option-feedback bad">✗ Noch nicht. Lies den Merksatz bzw. die Erklärung direkt darüber noch einmal.</div></div><div class="quiz-option"><input id="q18-b" name="q18" type="radio" value="b"/><label for="q18-b">Er biegt stark nach rechts ab.</label><div class="option-feedback bad">✗ Noch nicht. Lies den Merksatz bzw. die Erklärung direkt darüber noch einmal.</div></div><div class="quiz-option"><input id="q18-c" name="q18" type="radio" value="c"/><label for="q18-c">Er ändert seine Richtung nicht.</label><div class="option-feedback good">✓ Richtig. Gut erkannt.</div></div></div>
+<div class="written"><b>Schriftlich A:</b> Erkläre mit den Begriffen „Lot“, „optisch dichter“ und „optisch dünner“, wie Licht beim Übergang Luft → Wasser gebrochen wird.<textarea placeholder="Deine Antwort …"></textarea><details class="solution"><summary>Musterlösung anzeigen</summary><p>Luft ist optisch dünner als Wasser. Beim Übergang von Luft zu Wasser wird ein schräg einfallender Lichtstrahl zum Lot hin gebrochen. Der Brechungswinkel ist daher kleiner als der Einfallswinkel.</p></details></div>
+<div class="written"><b>Schriftlich B:</b> Du liest in einem vorgegebenen Brechungsdiagramm für α = 50° den Wert β = 31° ab. Beschreibe die Konstruktion des gebrochenen Strahls.<textarea placeholder="Deine Antwort …"></textarea><details class="solution"><summary>Musterlösung anzeigen</summary><p>Ich zeichne am Auftreffpunkt das Lot. Im ersten Medium trage ich den gegebenen einfallenden Strahl mit α = 50° zum Lot ein. Im zweiten Medium trage ich auf der richtigen Seite des Lots β = 31° ab und zeichne dort den gebrochenen Strahl.</p></details></div>
+</div>
+</section>
+<section class="chapter" id="k7">
+<div class="chapter-head"><div class="num">7</div><div><h2>Totalreflexion</h2><p>Grenzwinkel, Bedingungen und Anwendungen.</p></div></div>
+<p>Totalreflexion ist ein Spezialfall der Reflexion an der Grenze zweier transparenter Medien. Dabei wird das Licht vollständig in das optisch dichtere Medium zurückgeworfen.</p>
+<h3>Wann kann Totalreflexion auftreten?</h3>
+<div class="note"><b>Zwei Bedingungen müssen gleichzeitig erfüllt sein:</b><ol><li>Das Licht läuft vom <b>optisch dichteren</b> in ein <b>optisch dünneres</b> Medium.</li><li>Der Einfallswinkel ist größer als der <b>Grenzwinkel</b>.</li></ol></div>
+<p>Wenn man den Einfallswinkel beim Übergang dicht → dünn vergrößert, wird der gebrochene Strahl immer weiter vom Lot weg gebrochen. Beim <b>Grenzwinkel</b> verläuft der gebrochene Strahl genau entlang der Grenzfläche (β = 90°). Bei noch größeren Einfallswinkeln tritt kein Licht mehr in das dünnere Medium aus: Es kommt zur Totalreflexion.</p>
+<h3>Anwendungen</h3>
+<div class="grid2"><div class="card"><h4>Glasfaser</h4><p>Lichtsignale werden im Inneren der Faser immer wieder totalreflektiert und können so über große Entfernungen geführt werden.</p></div><div class="card"><h4>Prismen</h4><p>In Ferngläsern und anderen optischen Geräten können Prismen Licht durch Totalreflexion nahezu verlustarm umlenken.</p></div><div class="card"><h4>Wasseroberfläche</h4><p>Unter Wasser kann die Oberfläche bei flachem Blickwinkel wie ein Spiegel wirken.</p></div><div class="card"><h4>Medizintechnik</h4><p>Lichtleiter transportieren Licht beispielsweise in Endoskopen.</p></div></div>
+<h3>Ausprobieren: Grenzwinkel erleben</h3>
+<div class="css-sim"><div class="sim-head"><span class="dot"></span>Interaktive Lernskizze</div><p class="sim-help">Einfach eine Auswahl antippen. Die Skizze wechselt sofort – kein JavaScript nötig.</p>
+<input checked="" class="state-input" id="tir-30" name="tir" type="radio"/><input class="state-input" id="tir-42" name="tir" type="radio"/><input class="state-input" id="tir-55" name="tir" type="radio"/>
+<div class="choice-row"><label for="tir-30">α = 30°</label><label for="tir-42">α ≈ 41,8°</label><label for="tir-55">α = 55°</label></div>
+<div class="state-stack">
+<div class="scene tir-30"><svg viewbox="0 0 720 360"><rect class="medium1" height="180" width="720" x="0" y="0"></rect><rect class="medium2" height="180" width="720" x="0" y="180"></rect><line class="surface" x1="0" x2="720" y1="180" y2="180"></line><line class="normal" x1="360" x2="360" y1="25" y2="335"></line><line class="ray-in" x1="265" x2="360" y1="330" y2="180"></line><line class="ray-ref" opacity=".55" x1="360" x2="455" y1="180" y2="330"></line><line class="ray-out" x1="360" x2="565" y1="180" y2="65"></line><text class="svgstrong" x="25" y="42">Luft</text><text class="svgstrong" x="25" y="225">Glas</text></svg><div class="readout">30° &lt; 41,8°: Brechung + Teilreflexion. Noch keine Totalreflexion.</div></div>
+<div class="scene tir-42"><svg viewbox="0 0 720 360"><rect class="medium1" height="180" width="720" x="0" y="0"></rect><rect class="medium2" height="180" width="720" x="0" y="180"></rect><line class="surface" x1="0" x2="720" y1="180" y2="180"></line><line class="normal" x1="360" x2="360" y1="25" y2="335"></line><line class="ray-in" x1="225" x2="360" y1="330" y2="180"></line><line class="ray-ref" opacity=".55" x1="360" x2="495" y1="180" y2="330"></line><line class="ray-out" x1="360" x2="640" y1="180" y2="180"></line><text class="svgstrong" x="430" y="160">β = 90°</text></svg><div class="readout">Am Grenzwinkel läuft der gebrochene Strahl entlang der Grenzfläche.</div></div>
+<div class="scene tir-55"><svg viewbox="0 0 720 360"><rect class="medium1" height="180" width="720" x="0" y="0"></rect><rect class="medium2" height="180" width="720" x="0" y="180"></rect><line class="surface" x1="0" x2="720" y1="180" y2="180"></line><line class="normal" x1="360" x2="360" y1="25" y2="335"></line><line class="ray-in" x1="160" x2="360" y1="320" y2="180"></line><line class="ray-ref" x1="360" x2="560" y1="180" y2="320"></line><text class="svgstrong" x="420" y="120">kein gebrochener Strahl</text></svg><div class="readout">55° &gt; 41,8°: Totalreflexion. Das Licht bleibt vollständig im Glas.</div></div>
+</div></div>
+<div class="note warn"><strong>Achtung:</strong> Vom optisch dünneren in ein dichteres Medium gibt es keine Totalreflexion an dieser Grenzfläche – egal wie groß der Einfallswinkel ist.</div>
+<h3>Video</h3>
+<div class="video video-modern" data-video-id="B6be6HAITnE" data-chapter="7">
+  <div class="video-visual"><span class="video-index">FILM 07 · KAPITEL 7</span><div class="video-play-icon" aria-hidden="true">▶</div><span class="video-visual-foot">Erklärvideo · online ansehen</span></div>
+  <div class="video-info"><div class="video-eyebrow">PASSEND ZU KAPITEL 7</div><h4>Totalreflexion – einfach erklärt</h4><p>Wiederholt Grenzwinkel und typische Anwendungen.</p>
+  <div class="video-actions"><a class="video-primary" href="https://www.youtube.com/watch?v=B6be6HAITnE" target="_blank" rel="noopener">↗ Auf YouTube ansehen</a><button type="button" class="video-embed" hidden aria-expanded="false">Hier abspielen</button></div>
+  <small class="video-footnote">Internet erforderlich · Der direkte YouTube-Link funktioniert auch beim lokalen Öffnen der HTML-Datei.</small>
+  </div><div class="video-player" hidden></div></div>
+<div class="quiz"><h3>Übungen zu Kapitel 7</h3>
+<div class="css-mcq"><div class="question-title">19. Welche Voraussetzung ist für Totalreflexion notwendig?</div><div class="quiz-option"><input id="q19-a" name="q19" type="radio" value="a"/><label for="q19-a">Licht muss von optisch dünn nach dicht laufen.</label><div class="option-feedback bad">✗ Noch nicht. Lies den Merksatz bzw. die Erklärung direkt darüber noch einmal.</div></div><div class="quiz-option"><input id="q19-b" name="q19" type="radio" value="b"/><label for="q19-b">Der Einfallswinkel muss immer 0° sein.</label><div class="option-feedback bad">✗ Noch nicht. Lies den Merksatz bzw. die Erklärung direkt darüber noch einmal.</div></div><div class="quiz-option"><input id="q19-c" name="q19" type="radio" value="c"/><label for="q19-c">Licht muss von optisch dicht nach dünn laufen.</label><div class="option-feedback good">✓ Richtig. Gut erkannt.</div></div></div>
+<div class="css-mcq"><div class="question-title">20. Was passiert beim Grenzwinkel?</div><div class="quiz-option"><input id="q20-a" name="q20" type="radio" value="a"/><label for="q20-a">Der gebrochene Strahl läuft entlang des Lots.</label><div class="option-feedback bad">✗ Noch nicht. Lies den Merksatz bzw. die Erklärung direkt darüber noch einmal.</div></div><div class="quiz-option"><input id="q20-b" name="q20" type="radio" value="b"/><label for="q20-b">Der gebrochene Strahl läuft entlang der Grenzfläche.</label><div class="option-feedback good">✓ Richtig. Gut erkannt.</div></div><div class="quiz-option"><input id="q20-c" name="q20" type="radio" value="c"/><label for="q20-c">Das Licht bleibt stehen.</label><div class="option-feedback bad">✗ Noch nicht. Lies den Merksatz bzw. die Erklärung direkt darüber noch einmal.</div></div></div>
+<div class="css-mcq"><div class="question-title">21. Welche Anwendung nutzt Totalreflexion besonders direkt?</div><div class="quiz-option"><input id="q21-a" name="q21" type="radio" value="a"/><label for="q21-a">Glasfaserleitung</label><div class="option-feedback good">✓ Richtig. Gut erkannt.</div></div><div class="quiz-option"><input id="q21-b" name="q21" type="radio" value="b"/><label for="q21-b">Heizkörper</label><div class="option-feedback bad">✗ Noch nicht. Lies den Merksatz bzw. die Erklärung direkt darüber noch einmal.</div></div><div class="quiz-option"><input id="q21-c" name="q21" type="radio" value="c"/><label for="q21-c">Kompass</label><div class="option-feedback bad">✗ Noch nicht. Lies den Merksatz bzw. die Erklärung direkt darüber noch einmal.</div></div></div>
+<div class="written"><b>Schriftlich A:</b> Erkläre den Begriff Grenzwinkel, ohne eine Formel zu verwenden.<textarea placeholder="Deine Antwort …"></textarea><details class="solution"><summary>Musterlösung anzeigen</summary><p>Der Grenzwinkel ist der Einfallswinkel beim Übergang vom optisch dichteren zum dünneren Medium, bei dem der gebrochene Strahl gerade noch entlang der Grenzfläche läuft. Bei größeren Winkeln tritt Totalreflexion auf.</p></details></div>
+<div class="written"><b>Schriftlich B:</b> Erkläre, warum Glasfaserkabel Licht über Kurven führen können, obwohl Licht sich in einem Medium geradlinig ausbreitet.<textarea placeholder="Deine Antwort …"></textarea><details class="solution"><summary>Musterlösung anzeigen</summary><p>Innerhalb der Faser läuft das Licht zwischen den Grenzflächen jeweils geradlinig. An der Grenzfläche wird es bei geeigneten Winkeln immer wieder totalreflektiert. Viele einzelne gerade Teilstrecken folgen dadurch dem gebogenen Verlauf der Faser.</p></details></div>
+</div>
+</section>
+<section class="chapter" id="checkliste">
+<div class="chapter-head"><div class="num">✓</div><div><h2>Prüfungs-Checkliste</h2><p>Wenn du diese Punkte ohne Hilfe erklären kannst, bist du sehr gut vorbereitet.</p></div></div>
+<div class="grid2">
+<div class="card"><b>Grenzflächen</b><p>Ich kann Reflexion, Streuung, Absorption und Transmission unterscheiden und Beispiele nennen.</p></div>
+<div class="card"><b>Schatten</b><p>Ich kann Schattenraum/Schattenbild sowie Kern-/Halbschatten erklären und Randstrahlen konstruieren.</p></div>
+<div class="card"><b>Reflexionsgesetz</b><p>Ich weiß: α = β, beide zum Lot. Ich kann das Lot und den reflektierten Strahl zeichnen.</p></div>
+<div class="card"><b>Spiegelbild</b><p>Ich kenne Ort, Größe, Abstand und Virtualität des Spiegelbilds.</p></div>
+<div class="card"><b>Spiegelkonstruktion</b><p>Ich kann Punkte spiegeln und erklären, warum ein Ganzkörperspiegel mindestens H/2 hoch sein muss.</p></div>
+<div class="card"><b>Brechung</b><p>Ich kann „zum Lot“ und „vom Lot weg“ sicher zuordnen und mit einem Brechungsdiagramm konstruieren.</p></div>
+<div class="card"><b>Totalreflexion</b><p>Ich kenne die zwei Bedingungen, den Grenzwinkel und Anwendungen wie Glasfaser.</p></div>
+<div class="card"><b>Zeichnungen</b><p>Ich zeichne Strahlen immer mit Lineal, markiere Richtungspfeile und messe Winkel am Lot.</p></div>
+</div>
+<h3>Die 8 wichtigsten Sätze kurz vor der Arbeit</h3>
+<ol><li>Licht breitet sich im Strahlenmodell geradlinig aus.</li><li>Eine Grenzfläche kann Licht reflektieren, streuen, absorbieren oder transmittieren.</li><li>Einfallswinkel = Reflexionswinkel – gemessen zum Lot.</li><li>Beim ebenen Spiegel ist das Bild virtuell, gleich groß und gleich weit hinter dem Spiegel.</li><li>Gegenstandspunkt und Bildpunkt liegen auf einer Senkrechten zur Spiegelebene.</li><li>Für den ganzen Körper genügt ein passend positionierter Spiegel mit halber Körperhöhe.</li><li>Dünn → dicht: zum Lot; dicht → dünn: vom Lot.</li><li>Totalreflexion: nur dicht → dünn und nur oberhalb des Grenzwinkels.</li></ol>
+<div class="note good"><b>Lerntipp:</b> Zeichne zu jedem der acht Sätze eine kleine Skizze aus dem Kopf. Wer die Skizze korrekt erklären kann, hat das Prinzip meist wirklich verstanden.</div>
+</section>
+<section class="chapter">
+<h2>Video- und Quellenhinweise</h2>
+<p>Die Lernseite verwendet für Simulationen und Multiple-Choice-Aufgaben kein JavaScript. Dadurch funktionieren die Kerninteraktionen auch in vielen lokalen Dateivorschauen. Die eingebetteten YouTube-Videos benötigen Internet; falls eine Vorschau Videos blockiert, nutze den jeweiligen Direktlink.</p>
+<p><small>Videokanäle/-quellen: sofatutor, Physik mit B und musstewissen Physik. Externe Inhalte können vom jeweiligen Anbieter geändert oder entfernt werden.</small></p>
+</section>
+</main>
+</div>
+<footer class="container footer">Erstellt als Lernhilfe für die Themenliste „Lernkontrolle 9a – 1. HJ 2026/2027“. Diese Seite ersetzt nicht die Hinweise der Lehrkraft; bei abweichender Unterrichtsnotation gilt die im Unterricht verwendete Schreibweise.</footer>
+
+
+<script>
+(function(){
+  'use strict';
+  const NS='http://www.w3.org/2000/svg';
+  const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+  const rad=d=>d*Math.PI/180;
+  const deg=r=>r*180/Math.PI;
+  const fmt=(v,d=1)=>Number(v).toLocaleString('de-DE',{minimumFractionDigits:d,maximumFractionDigits:d});
+  const point=(cx,cy,len,ang)=>({x:cx+len*Math.cos(rad(ang)),y:cy+len*Math.sin(rad(ang))});
+  const line=(cls,a,b,extra='')=>`<line class="${cls}" x1="${a.x.toFixed(1)}" y1="${a.y.toFixed(1)}" x2="${b.x.toFixed(1)}" y2="${b.y.toFixed(1)}" ${extra}></line>`;
+  const txt=(x,y,t,cls='live-svg-text')=>`<text class="${cls}" x="${x}" y="${y}">${t}</text>`;
+  const media={
+    air:{name:'Luft',n:1.00}, water:{name:'Wasser',n:1.33}, acrylic:{name:'Acrylglas',n:1.49}, glass:{name:'Glas',n:1.50}, diamond:{name:'Diamant',n:2.42}
+  };
+  const mediumOptions=(keys)=>keys.map(k=>`<option value="${k}">${media[k].name} (n=${String(media[k].n).replace('.',',')})</option>`).join('');
+
+  function shell(title,subtitle,controls){
+    const box=document.createElement('div');
+    box.className='live-sim';
+    box.innerHTML=`<div class="live-top"><div><div class="live-title">${title}</div><div class="live-subtitle">${subtitle}</div></div><div class="live-badge">JavaScript aktiv · Live</div></div><div class="live-grid"><div class="live-controls">${controls}<button class="live-reset" type="button">↺ Ausgangslage</button></div><div class="live-stage-wrap"><div class="live-stage"><svg viewBox="0 0 760 430" role="img" aria-live="polite"></svg></div><div class="live-caption"></div><div class="live-explain"></div></div></div>`;
+    return box;
+  }
+  function controlRange(id,label,min,max,step,value,unit,hint=''){
+    return `<div class="control-card"><label for="${id}">${label}<span class="control-value" data-value-for="${id}"></span></label><input id="${id}" type="range" min="${min}" max="${max}" step="${step}" value="${value}" data-unit="${unit}">${hint?`<div class="control-hint">${hint}</div>`:''}</div>`;
+  }
+  function controlSelect(id,label,options,hint=''){
+    return `<div class="control-card"><label for="${id}">${label}</label><select id="${id}">${options}</select>${hint?`<div class="control-hint">${hint}</div>`:''}</div>`;
+  }
+  function metric(label,value){return `<div class="metric"><small>${label}</small><strong>${value}</strong></div>`}
+  function setup(chapterId,box,defaults,render){
+    const fallback=document.querySelector(`#${chapterId} .css-sim`);
+    if(!fallback) throw new Error('Fallback not found: '+chapterId);
+    fallback.before(box);
+    const inputs=[...box.querySelectorAll('input,select')];
+    const updateValues=()=>{
+      box.querySelectorAll('input[type=range]').forEach(el=>{
+        const out=box.querySelector(`[data-value-for="${el.id}"]`);
+        if(out) out.textContent=`${String(el.value).replace('.',',')} ${el.dataset.unit||''}`.trim();
+      });
+    };
+    const doRender=()=>{updateValues();render(box)};
+    inputs.forEach(el=>el.addEventListener(el.type==='range'?'input':'change',doRender));
+    box.querySelector('.live-reset').addEventListener('click',()=>{
+      Object.entries(defaults).forEach(([id,v])=>{const el=box.querySelector('#'+id);if(el){if(el.type==='checkbox')el.checked=!!v;else el.value=v;}});
+      doRender();
+    });
+    doRender();
+  }
+
+  function simSurface(){
+    const materials={
+      mirror:{name:'Spiegel',R:.92,T:.00,A:.08,rough:.04},
+      white:{name:'Matte weiße Wand',R:.78,T:.00,A:.22,rough:.92},
+      glass:{name:'Klarglas',R:.08,T:.90,A:.02,rough:.03},
+      black:{name:'Schwarze Fläche',R:.05,T:.00,A:.95,rough:.72},
+      frost:{name:'Milchglas',R:.12,T:.78,A:.10,rough:.86}
+    };
+    const opts=Object.entries(materials).map(([k,v])=>`<option value="${k}">${v.name}</option>`).join('');
+    const box=shell('Grenzfläche: Wohin geht die Lichtenergie?','Verändere Material, Einfallswinkel und Rauigkeit. Die Prozentwerte sind ein anschauliches Modell – keine exakten Fresnel-Messwerte.',
+      controlSelect('s1mat','Material',opts)+controlRange('s1ang','Einfallswinkel',0,80,1,35,'°')+controlRange('s1rough','Rauigkeit',0,100,1,20,'%','Je rauer die Oberfläche, desto stärker wird reflektiertes bzw. durchgelassenes Licht gestreut.'));
+    setup('k1',box,{s1mat:'glass',s1ang:35,s1rough:20},b=>{
+      const m=materials[b.querySelector('#s1mat').value], a=+b.querySelector('#s1ang').value, rough=+b.querySelector('#s1rough').value/100;
+      let R=m.R, T=m.T, A=m.A;
+      if(m.T>0){const grazing=Math.pow(a/80,2)*.18;R=clamp(R+grazing,0,.7);T=Math.max(0,1-R-A)}
+      const scatter=clamp((m.rough*.65+rough*.55),0,1)*R;
+      const spec=Math.max(0,R-scatter);
+      const cx=350,cy=215,L=230,nAng=-90,src=point(cx,cy,L,nAng-a),refl=point(cx,cy,L,nAng+a),trans=point(cx,cy,L,90-a*.55);
+      let rays=line('live-ray-in live-beam',src,{x:cx,y:cy});
+      if(spec>.015) rays+=line('live-ray-ref live-beam',{x:cx,y:cy},refl,`opacity="${clamp(.25+spec,0,1)}"`);
+      if(T>.015) rays+=line('live-ray-out live-beam',{x:cx,y:cy},trans,`opacity="${clamp(.25+T,0,1)}"`);
+      const fan=[];for(let i=-3;i<=3;i++){const p=point(cx,cy,130,nAng+a+i*12);fan.push(line('live-ray-faint',{x:cx,y:cy},p,`opacity="${clamp(scatter*1.5,0,.8)}"`))}
+      const svg=b.querySelector('svg');
+      svg.innerHTML=`<rect x="0" y="0" width="760" height="430" rx="18" fill="transparent"></rect><line class="live-surface" x1="90" y1="215" x2="690" y2="215"></line><line class="live-normal" x1="350" y1="35" x2="350" y2="395"></line>${rays}${fan.join('')}<circle cx="350" cy="215" r="${14+28*A}" fill="#d96b45" opacity="${.15+.55*A}"></circle>${txt(34,42,m.name,'live-svg-label')}${txt(34,66,`α = ${a}°`,'live-svg-small')}${txt(535,394,'Transmission','live-svg-small')}${txt(526,52,'Reflexion / Streuung','live-svg-small')}`;
+      b.querySelector('.live-caption').innerHTML=metric('Reflexion',Math.round(R*100)+' %')+metric('Transmission',Math.round(T*100)+' %')+metric('Absorption',Math.round(A*100)+' %');
+      b.querySelector('.live-explain').innerHTML=`Von der reflektierten Energie sind in diesem Modell etwa <b>${Math.round(scatter*100)} %</b> gestreut. ${m.name==='glass'?'Bei flacherem Auftreffen (großem α) nimmt die Reflexion am Glas sichtbar zu.':''}`;
+    });
+  }
+
+  function simShadow(){
+    const box=shell('Schattenlabor','Verändere Größe der Lichtquelle, Gegenstandsposition und Gegenstandsgröße. Bei einer ausgedehnten Lichtquelle entstehen Kern- und Halbschatten.',
+      controlRange('s2src','Größe der Lichtquelle',0,130,2,70,'')+controlRange('s2pos','Gegenstandsposition',28,76,1,50,'%')+controlRange('s2obj','Gegenstandsgröße',60,180,2,110,'px'));
+    setup('k2',box,{s2src:70,s2pos:50,s2obj:110},b=>{
+      const s=+b.querySelector('#s2src').value, pos=+b.querySelector('#s2pos').value, oh=+b.querySelector('#s2obj').value;
+      const sx=90,screenX=690,cy=215, ox=sx+(screenX-sx)*(pos/100), st=cy-s/2,sb=cy+s/2,ot=cy-oh/2,ob=cy+oh/2;
+      const project=(sy,oy)=>sy+(oy-sy)*(screenX-sx)/(ox-sx);
+      const iTop=[project(st,ot),project(st,ob)].sort((a,c)=>a-c), iBot=[project(sb,ot),project(sb,ob)].sort((a,c)=>a-c);
+      const outerTop=Math.max(25,Math.min(iTop[0],iBot[0])), outerBot=Math.min(405,Math.max(iTop[1],iBot[1]));
+      const umbraTop=Math.max(iTop[0],iBot[0]), umbraBot=Math.min(iTop[1],iBot[1]);
+      const hasUmbra=umbraTop<umbraBot;
+      const rayPts=[[st,ot],[st,ob],[sb,ot],[sb,ob]].map(([sy,oy])=>({a:{x:sx,y:sy},b:{x:screenX,y:project(sy,oy)}}));
+      const svg=b.querySelector('svg');
+      svg.innerHTML=`<rect x="0" y="0" width="760" height="430" fill="transparent"></rect><line class="live-screen" x1="690" y1="25" x2="690" y2="405"></line><line x1="90" y1="${st}" x2="90" y2="${sb}" stroke="#f2b600" stroke-width="12" stroke-linecap="round"></line>${rayPts.map(r=>line('live-guide',r.a,r.b)).join('')}<line class="live-object" x1="${ox}" y1="${ot}" x2="${ox}" y2="${ob}"></line><rect x="679" y="${outerTop}" width="22" height="${Math.max(0,outerBot-outerTop)}" rx="5" fill="#8c96a8" opacity=".26"></rect>${hasUmbra?`<rect x="677" y="${clamp(umbraTop,25,405)}" width="26" height="${Math.max(0,clamp(umbraBot,25,405)-clamp(umbraTop,25,405))}" rx="5" fill="#111827" opacity=".82"></rect>`:''}${txt(34,45,s===0?'Punktlichtquelle':'ausgedehnte Lichtquelle','live-svg-label')}${txt(595,35,'Schirm','live-svg-small')}${hasUmbra?txt(548,215,'Kernschatten','live-svg-small'):txt(510,215,'kein Kernschatten mehr','live-svg-small')}`;
+      const outer=Math.max(0,outerBot-outerTop), umb=hasUmbra?Math.max(0,umbraBot-umbraTop):0;
+      b.querySelector('.live-caption').innerHTML=metric('Schatten gesamt',Math.round(outer)+' px')+metric('Kernschatten',Math.round(umb)+' px')+metric('Objekt–Schirm',Math.round(screenX-ox)+' rel. E.');
+      b.querySelector('.live-explain').innerHTML=s===0?'Eine Punktlichtquelle erzeugt nur einen scharf begrenzten Schatten.':'Die Randstrahlen der oberen und unteren Quellkante erzeugen Halbschatten. Wird die Lichtquelle groß genug, kann der Kernschatten ganz verschwinden.';
+    });
+  }
+
+  function simReflection(){
+    const box=shell('Reflexionsgesetz – live','Ändere Einfallswinkel und Spiegelneigung. Der reflektierte Strahl bleibt immer symmetrisch zum Lot: α = β.',
+      controlRange('s3ang','Einfallswinkel α',0,80,1,45,'°')+controlRange('s3tilt','Spiegelneigung',-25,25,1,0,'°','Das Lot dreht sich immer mit dem Spiegel mit.'));
+    setup('k3',box,{s3ang:45,s3tilt:0},b=>{
+      const a=+b.querySelector('#s3ang').value, tilt=+b.querySelector('#s3tilt').value, cx=380,cy=220,L=235;
+      const mirrorA=point(cx,cy,300,tilt+180),mirrorB=point(cx,cy,300,tilt),normalAng=tilt-90,src=point(cx,cy,L,normalAng-a),out=point(cx,cy,L,normalAng+a),na=point(cx,cy,180,normalAng),nb=point(cx,cy,180,normalAng+180);
+      b.querySelector('svg').innerHTML=`${line('live-surface',mirrorA,mirrorB)}${line('live-normal',na,nb)}${line('live-ray-in live-beam',src,{x:cx,y:cy})}${line('live-ray-ref live-beam',{x:cx,y:cy},out)}<circle cx="${src.x}" cy="${src.y}" r="9" fill="#f0a11a"></circle><circle cx="${cx}" cy="${cy}" r="6" fill="currentColor"></circle>${txt(35,45,`α = ${a}°`,'live-svg-label')}${txt(35,69,`β = ${a}°`,'live-svg-label')}${txt(35,93,`Spiegel: ${tilt>0?'+':''}${tilt}°`,'live-svg-small')}${txt(392,64,'Lot','live-svg-small')}`;
+      b.querySelector('.live-caption').innerHTML=metric('Einfallswinkel α',a+'°')+metric('Reflexionswinkel β',a+'°')+metric('Differenz','0°');
+      b.querySelector('.live-explain').innerHTML=`Egal wie du Spiegel oder Strahl veränderst: <b>α = β</b>. Entscheidend ist, dass beide Winkel <b>zum Lot</b> gemessen werden – nicht zur Spiegeloberfläche.`;
+    });
+  }
+
+  function simMirror(){
+    const box=shell('Virtuelles Spiegelbild','Verändere Abstand und Größe des Gegenstands. Das virtuelle Bild liegt immer gleich weit hinter dem Spiegel und ist gleich groß.',
+      controlRange('s4dist','Gegenstandsabstand',30,250,5,110,'cm')+controlRange('s4height','Gegenstandshöhe',60,180,5,120,'cm')+`<div class="control-card"><label><input id="s4rays" type="checkbox" checked>Hilfsstrahlen anzeigen</label><div class="control-hint">Die gestrichelten Verlängerungen treffen sich scheinbar hinter dem Spiegel.</div></div>`);
+    setup('k4',box,{s4dist:110,s4height:120,s4rays:true},b=>{
+      const d=+b.querySelector('#s4dist').value,h=+b.querySelector('#s4height').value,show=b.querySelector('#s4rays').checked,mx=380,base=350,scaleD=1.05,scaleH=1.3,ox=mx-clamp(d*scaleD,75,275),ix=mx+clamp(d*scaleD,75,275),top=base-clamp(h*scaleH,85,240);
+      let rays='';
+      if(show){
+        // The ray actually runs FROM the object point TO the mirror and then to the eye.
+        // Extend the reflected ray backwards: it intersects the virtual image point.
+        const eye={x:55,y:185};
+        for(const yy of [top,top+(base-top)*.58]){
+          const img={x:ix,y:yy},obj={x:ox,y:yy};
+          const u=(mx-eye.x)/(ix-eye.x);
+          const hit={x:mx,y:eye.y+(yy-eye.y)*u};
+          rays+=line('live-ray-in',obj,hit,'opacity=".70"')+line('live-ray-ref',hit,eye,'opacity=".72"')+line('live-guide',hit,img);
+        }
+        rays+=`<circle cx="${eye.x}" cy="${eye.y}" r="7" fill="#f0a11a"></circle>`+txt(30,166,'Auge','live-svg-small');
+      }
+      b.querySelector('svg').innerHTML=`<line class="live-mirror" x1="${mx}" y1="35" x2="${mx}" y2="390"></line><line class="live-object" x1="${ox}" y1="${base}" x2="${ox}" y2="${top}"></line><circle cx="${ox}" cy="${top}" r="10" fill="#df5a54"></circle><line class="live-image" x1="${ix}" y1="${base}" x2="${ix}" y2="${top}"></line><circle cx="${ix}" cy="${top}" r="9" fill="none" stroke="currentColor" stroke-width="4" stroke-dasharray="5 5" opacity=".45"></circle><line class="live-guide" x1="${ox}" y1="${top}" x2="${ix}" y2="${top}"></line>${rays}${txt(45,405,'Gegenstand','live-svg-label')}${txt(590,405,'virtuelles Bild','live-svg-label')}${txt(394,55,'Spiegel','live-svg-small')}`;
+      b.querySelector('.live-caption').innerHTML=metric('Gegenstandsabstand',d+' cm')+metric('Bildabstand',d+' cm')+metric('Bildgröße',h+' cm');
+      b.querySelector('.live-explain').innerHTML=`Das Bild ist <b>virtuell</b>: Hinter dem Spiegel laufen keine echten Lichtstrahlen zusammen. Dein Auge verlängert die reflektierten Strahlen gedanklich rückwärts.`;
+    });
+  }
+
+  function simMirrorHeight(){
+    const box=shell('Wie groß muss ein Ganzkörperspiegel sein?','Spiele mit Körpergröße und Abstand. Die Strahlenkonstruktion zeigt: Der Mindestspiegel bleibt immer halb so hoch wie die Person.',
+      controlRange('s5height','Körpergröße',140,205,1,175,'cm')+controlRange('s5dist','Abstand zum Spiegel',0.5,4,0.1,1.5,'m','Beobachte: Der Abstand verändert den Strahlenverlauf, nicht die nötige Spiegelhöhe.'));
+    setup('k5',box,{s5height:175,s5dist:1.5},b=>{
+      const H=+b.querySelector('#s5height').value,d=+b.querySelector('#s5dist').value,mx=620,footY=375,headY=70,eyeHeight=H-10,eyeY=footY-(eyeHeight/H)*(footY-headY),px=mx-(150+(d-.5)/3.5*300),headMirror=(headY+eyeY)/2,footMirror=(footY+eyeY)/2;
+      const eye={x:px,y:eyeY};const head={x:px,y:headY},feet={x:px,y:footY},mh={x:mx,y:headMirror},mf={x:mx,y:footMirror};
+      b.querySelector('svg').innerHTML=`<line class="live-mirror" x1="${mx}" y1="${headMirror}" x2="${mx}" y2="${footMirror}"></line><line stroke="currentColor" stroke-width="7" stroke-linecap="round" x1="${px}" y1="${headY+18}" x2="${px}" y2="${footY}"></line><circle cx="${px}" cy="${headY+8}" r="12" fill="none" stroke="currentColor" stroke-width="5"></circle><circle cx="${eye.x}" cy="${eye.y}" r="6" fill="#f0a11a"></circle>${line('live-ray-in',head,mh,'opacity=".72"')}${line('live-ray-ref',mh,eye,'opacity=".72"')}${line('live-ray-in',feet,mf,'opacity=".72"')}${line('live-ray-ref',mf,eye,'opacity=".72"')}<line class="live-guide" x1="${px}" y1="${headMirror}" x2="${mx}" y2="${headMirror}"></line><line class="live-guide" x1="${px}" y1="${footMirror}" x2="${mx}" y2="${footMirror}"></line>${txt(34,45,`Person: ${H} cm`,'live-svg-label')}${txt(34,69,`Abstand: ${fmt(d,1)} m`,'live-svg-small')}${txt(635,215,`Spiegel ${fmt(H/2,1)} cm`,'live-svg-label')}`;
+      b.querySelector('.live-caption').innerHTML=metric('Körpergröße',H+' cm')+metric('Mindestspiegel',fmt(H/2,1)+' cm')+metric('Abhängigkeit vom Abstand','keine');
+      b.querySelector('.live-explain').innerHTML=`Die Reflexionspunkte für Kopf und Füße liegen jeweils auf halber Höhe zwischen Auge und betrachtetem Punkt. Deshalb ist die nötige Spiegelhöhe immer <b>H / 2 = ${fmt(H/2,1)} cm</b>.`;
+    });
+  }
+
+  function simRefraction(){
+    const box=shell('Brechung nach dem Snelliusschen Gesetz','Wähle zwei Medien und verändere α. Die Simulation berechnet β live mit n₁·sin(α) = n₂·sin(β).',
+      controlSelect('s6m1','Medium 1',mediumOptions(['air','water','glass','diamond']))+controlSelect('s6m2','Medium 2',mediumOptions(['air','water','glass','diamond']))+controlRange('s6ang','Einfallswinkel α',0,80,1,45,'°'));
+    setup('k6',box,{s6m1:'air',s6m2:'glass',s6ang:45},b=>{
+      const k1=b.querySelector('#s6m1').value,k2=b.querySelector('#s6m2').value,m1=media[k1],m2=media[k2],a=+b.querySelector('#s6ang').value,cx=380,cy=215,L=235;
+      const ratio=m1.n/m2.n*Math.sin(rad(a)),tir=ratio>1, beta=tir?null:deg(Math.asin(clamp(ratio,-1,1))),src=point(cx,cy,L,-90-a),refl=point(cx,cy,L,-90+a);
+      let out=''; if(!tir){const p=point(cx,cy,L,90-beta);out=line('live-ray-out live-beam',{x:cx,y:cy},p)}
+      b.querySelector('svg').innerHTML=`<rect class="live-medium-a" x="0" y="0" width="760" height="215"></rect><rect class="live-medium-b" x="0" y="215" width="760" height="215"></rect><line class="live-surface" x1="35" y1="215" x2="725" y2="215"></line><line class="live-normal" x1="380" y1="30" x2="380" y2="400"></line>${line('live-ray-in live-beam',src,{x:cx,y:cy})}${line('live-ray-faint',{x:cx,y:cy},refl)}${out}${txt(35,45,`${m1.name}  n₁=${String(m1.n).replace('.',',')}`,'live-svg-label')}${txt(35,252,`${m2.name}  n₂=${String(m2.n).replace('.',',')}`,'live-svg-label')}${txt(515,58,`α = ${a}°`,'live-svg-label')}${tir?txt(480,335,'Totalreflexion','live-svg-label'):txt(500,335,`β = ${fmt(beta,1)}°`,'live-svg-label')}`;
+      let relation='keine Ablenkung';if(!tir&&a>0){relation=beta<a?'zum Lot':'vom Lot weg';if(Math.abs(beta-a)<.05) relation='keine Richtungsänderung'}
+      b.querySelector('.live-caption').innerHTML=metric('α',a+'°')+metric('β',tir?'—':fmt(beta,1)+'°')+metric('Verhalten',tir?'Totalreflexion':relation);
+      const exp=b.querySelector('.live-explain');
+      exp.className='live-explain'+(tir?' warn':'');
+      exp.innerHTML=tir?`Für diesen Winkel verlangt das Brechungsgesetz sin(β) &gt; 1 – das ist unmöglich. Deshalb tritt <b>Totalreflexion</b> auf.`:(m1.n<m2.n?`n₂ ist größer: Der Strahl wird <b>zum Lot</b> gebrochen (β &lt; α).`:(m1.n>m2.n?`n₂ ist kleiner: Der Strahl wird <b>vom Lot weg</b> gebrochen (β &gt; α).`:`Beide Medien haben denselben Brechungsindex: Der Strahl ändert seine Richtung nicht.`));
+    });
+  }
+
+  function simTIR(){
+    const box=shell('Totalreflexion – Grenzwinkel exakt treffen','Lass Licht aus einem optisch dichteren Medium austreten. Der Grenzwinkel wird aus den Brechungsindizes berechnet; schiebe α darüber und beobachte den Umschlag.',
+      controlSelect('s7m1','Inneres Medium',mediumOptions(['water','glass','diamond']))+controlSelect('s7m2','Äußeres Medium',mediumOptions(['air','water']))+controlRange('s7ang','Einfallswinkel α',0,85,0.01,35,'°')+'<button type="button" class="critical-jump">◎ Exakt auf den Grenzwinkel</button>');
+    setup('k7',box,{s7m1:'glass',s7m2:'air',s7ang:35},b=>{
+      const m1=media[b.querySelector('#s7m1').value],m2=media[b.querySelector('#s7m2').value],a=+b.querySelector('#s7ang').value,cx=380,cy=215,L=235;
+      const possible=m1.n>m2.n,crit=possible?deg(Math.asin(m2.n/m1.n)):null,ratio=m1.n/m2.n*Math.sin(rad(a)),tir=possible&&a>crit+0.005,boundary=possible&&Math.abs(a-crit)<=0.005,beta=ratio<=1.000000001?deg(Math.asin(clamp(ratio,-1,1))):null,src=point(cx,cy,L,90+a),refl=point(cx,cy,L,90-a);
+      let out='';if(!tir&&beta!==null){const p=point(cx,cy,L,-90+beta);out=line('live-ray-out live-beam',{x:cx,y:cy},p)}
+      b.querySelector('svg').innerHTML=`<rect class="live-medium-b" x="0" y="0" width="760" height="215"></rect><rect class="live-medium-a" x="0" y="215" width="760" height="215"></rect><line class="live-surface" x1="35" y1="215" x2="725" y2="215"></line><line class="live-normal" x1="380" y1="30" x2="380" y2="400"></line>${line('live-ray-in live-beam',src,{x:cx,y:cy})}${line(tir?'live-ray-ref live-beam':'live-ray-faint',{x:cx,y:cy},refl)}${out}${txt(35,45,`${m2.name}  n₂=${String(m2.n).replace('.',',')}`,'live-svg-label')}${txt(35,252,`${m1.name}  n₁=${String(m1.n).replace('.',',')}`,'live-svg-label')}${tir?txt(505,335,'100 % zurück','live-svg-label'):(boundary?txt(500,130,'β ≈ 90°','live-svg-label'):txt(505,130,beta===null?'':`β = ${fmt(beta,1)}°`,'live-svg-label'))}`;
+      const jump=b.querySelector('.critical-jump');if(jump){jump.disabled=!possible;jump.title=possible?`Grenzwinkel ${fmt(crit,2)}° einstellen`:'Nur beim Übergang vom dichteren ins dünnere Medium möglich'}
+      const pct=clamp(a/85*100,0,100);
+      b.querySelector('.live-caption').innerHTML=metric('Grenzwinkel',possible?fmt(crit,1)+'°':'nicht vorhanden')+metric('α',fmt(a,1)+'°')+metric('Zustand',!possible?'keine TIR möglich':tir?'Totalreflexion':boundary?'am Grenzwinkel':'Brechung + Reflexion');
+      const exp=b.querySelector('.live-explain');exp.className='live-explain'+(tir?' good':boundary?' warn':'');
+      exp.innerHTML=`<div>${!possible?'Totalreflexion ist hier unmöglich, weil n₁ ≤ n₂.':tir?`α = ${fmt(a,1)}° ist größer als α<sub>G</sub> = ${fmt(crit,1)}°. Es gibt keinen gebrochenen Strahl mehr.`:boundary?`Du bist praktisch genau am Grenzwinkel. Der gebrochene Strahl läuft entlang der Grenzfläche.`:`Noch unter dem Grenzwinkel: Ein Teil des Lichts tritt in ${m2.name} aus.`}</div>${possible?`<div class="critical-meter" aria-hidden="true"><span class="critical-marker" style="left:${pct}%"></span></div>`:''}`;
+    });
+    box.querySelector('.critical-jump').addEventListener('click',()=>{
+      const m1=media[box.querySelector('#s7m1').value],m2=media[box.querySelector('#s7m2').value];
+      if(m1.n<=m2.n)return;
+      const crit=deg(Math.asin(m2.n/m1.n));
+      const a=box.querySelector('#s7ang');a.value=crit.toFixed(2);
+      a.dispatchEvent(new Event('input',{bubbles:true}));
+    });
+  }
+
+  try{
+    simSurface();simShadow();simReflection();simMirror();simMirrorHeight();simRefraction();simTIR();
+    document.documentElement.classList.add('js-live');
+    const note=document.querySelector('section.chapter:last-of-type p');
+    if(note && note.textContent.includes('kein JavaScript')) note.innerHTML='Diese Lernseite nutzt <b>Progressive Enhancement</b>: Mit JavaScript erscheinen echte Live-Simulationen mit frei veränderbaren Parametern. Wird JavaScript blockiert, bleiben automatisch die robusten statischen CSS-Interaktionen sichtbar. Die YouTube-Videos benötigen Internet; beim lokalen Öffnen führt ein direkter Link zum Video.';
+  }catch(err){
+    console.error('Live-Simulationen konnten nicht aktiviert werden; CSS-Fallback bleibt sichtbar.',err);
+  }
+})();
+
+</script>
+<script>
+(function(){
+  'use strict';
+  const hosted=/^https?:$/.test(window.location.protocol);
+  document.querySelectorAll('.video-modern[data-video-id]').forEach(card=>{
+    const btn=card.querySelector('.video-embed'), panel=card.querySelector('.video-player');
+    const id=card.dataset.videoId;
+    if(!btn||!panel||!/^[A-Za-z0-9_-]{11}$/.test(id))return;
+    // file:// and restricted mobile file previews cannot provide the Referer needed by YouTube.
+    // In these situations the visible standard HTTPS link works without an iframe.
+    if(!hosted)return;
+    btn.hidden=false;
+    btn.addEventListener('click',()=>{
+      if(!panel.hidden){panel.hidden=true;panel.replaceChildren();btn.textContent='Hier abspielen';btn.setAttribute('aria-expanded','false');return;}
+      const frame=document.createElement('iframe');
+      frame.src='https://www.youtube-nocookie.com/embed/'+id+'?playsinline=1&rel=0';
+      frame.title='Videoplayer: '+card.querySelector('h4').textContent;
+      frame.loading='lazy';
+      frame.allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share';
+      frame.referrerPolicy='strict-origin-when-cross-origin';
+      frame.allowFullscreen=true;
+      panel.appendChild(frame);
+      const note=document.createElement('div');note.className='video-player-note';
+      note.append('Falls das Abspielen hier durch den Browser oder YouTube blockiert wird: ');
+      const direct=card.querySelector('.video-primary').cloneNode(true);direct.textContent='direkt auf YouTube ansehen ↗';note.appendChild(direct);
+      panel.appendChild(note);panel.hidden=false;
+      btn.textContent='Player schließen';btn.setAttribute('aria-expanded','true');
+    });
+  });
+})();
+</script>
+</body>
+</html>
