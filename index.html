@@ -114,7 +114,6 @@ html.js-live .css-sim{display:none}
 <div class="kicker">Physik · Optik · Klasse 9 · Gymnasium</div>
 <h1>Licht, Schatten, Spiegel &amp; Brechung</h1>
 <p class="lead">Eine vollständige Lernseite für die Lernkontrolle: von den Grundlagen bis zur Totalreflexion – mit interaktiven Simulationen, Merksätzen, Videos und Aufgaben.</p>
-<p><span class="badge">7 Kapitel</span><span class="badge">105 Multiple-Choice-Fragen</span><span class="badge">14 schriftliche Aufgaben</span><span class="badge">Offline lernbar*</span></p>
 </div>
 <aside class="hero-card"><strong>So nutzt du die Seite sinnvoll</strong><ol><li>Lies ein Kapitel langsam.</li><li>Probiere die interaktiven Simulationen aus: Verändere Winkel, Medien und Abstände und beobachte, wie sich das Licht verhält.</li><li>Beantworte die Multiple-Choice-Aufgaben – das Feedback erscheint sofort.</li><li>Bearbeite die schriftlichen Aufgaben zuerst ohne Musterlösung.</li></ol><p><small>Erklärvideos benötigen Internet. Lokal öffnen sie direkt auf YouTube; bei einer online gehosteten Seite ist zusätzlich ein eingebetteter Player verfügbar.</small></p></aside>
 </div>
@@ -555,20 +554,20 @@ html.js-live .css-sim{display:none}
       controlRange('s4dist','Gegenstandsabstand',30,250,5,110,'cm')+controlRange('s4height','Gegenstandshöhe',60,180,5,120,'cm')+`<div class="control-card"><label><input id="s4rays" type="checkbox" checked>Hilfsstrahlen anzeigen</label><div class="control-hint">Die gestrichelten Verlängerungen treffen sich scheinbar hinter dem Spiegel.</div></div>`);
     setup('k4',box,{s4dist:110,s4height:120,s4rays:true},b=>{
       const d=+b.querySelector('#s4dist').value,h=+b.querySelector('#s4height').value,show=b.querySelector('#s4rays').checked,mx=380,base=350,scaleD=1.05,scaleH=1.3,ox=mx-clamp(d*scaleD,75,275),ix=mx+clamp(d*scaleD,75,275),top=base-clamp(h*scaleH,85,240);
+      const eye={x:55,y:185};
       let rays='';
       if(show){
         // The ray actually runs FROM the object point TO the mirror and then to the eye.
         // Extend the reflected ray backwards: it intersects the virtual image point.
-        const eye={x:55,y:185};
         for(const yy of [top,top+(base-top)*.58]){
           const img={x:ix,y:yy},obj={x:ox,y:yy};
           const u=(mx-eye.x)/(ix-eye.x);
           const hit={x:mx,y:eye.y+(yy-eye.y)*u};
           rays+=line('live-ray-in',obj,hit,'opacity=".70"')+line('live-ray-ref',hit,eye,'opacity=".72"')+line('live-guide',hit,img);
         }
-        rays+=`<circle cx="${eye.x}" cy="${eye.y}" r="7" fill="#f0a11a"></circle>`+txt(30,166,'Auge','live-svg-small');
       }
-      b.querySelector('svg').innerHTML=`<line class="live-mirror" x1="${mx}" y1="35" x2="${mx}" y2="390"></line><line class="live-object" x1="${ox}" y1="${base}" x2="${ox}" y2="${top}"></line><circle cx="${ox}" cy="${top}" r="10" fill="#df5a54"></circle><line class="live-image" x1="${ix}" y1="${base}" x2="${ix}" y2="${top}"></line><circle cx="${ix}" cy="${top}" r="9" fill="none" stroke="currentColor" stroke-width="4" stroke-dasharray="5 5" opacity=".45"></circle><line class="live-guide" x1="${ox}" y1="${top}" x2="${ix}" y2="${top}"></line>${rays}${txt(45,405,'Gegenstand','live-svg-label')}${txt(590,405,'virtuelles Bild','live-svg-label')}${txt(394,55,'Spiegel','live-svg-small')}`;
+      const observer=`<circle cx="${eye.x}" cy="${eye.y}" r="7" fill="#f0a11a"></circle>`+txt(30,166,'Auge','live-svg-small');
+      b.querySelector('svg').innerHTML=`<line class="live-mirror" x1="${mx}" y1="35" x2="${mx}" y2="390"></line><line class="live-object" x1="${ox}" y1="${base}" x2="${ox}" y2="${top}"></line><circle cx="${ox}" cy="${top}" r="10" fill="#df5a54"></circle><line class="live-image" x1="${ix}" y1="${base}" x2="${ix}" y2="${top}"></line><circle cx="${ix}" cy="${top}" r="9" fill="none" stroke="currentColor" stroke-width="4" stroke-dasharray="5 5" opacity=".45"></circle><line class="live-guide" x1="${ox}" y1="${top}" x2="${ix}" y2="${top}"></line>${rays}${observer}${txt(45,405,'Gegenstand','live-svg-label')}${txt(590,405,'virtuelles Bild','live-svg-label')}${txt(394,55,'Spiegel','live-svg-small')}`;
       b.querySelector('.live-caption').innerHTML=metric('Gegenstandsabstand',d+' cm')+metric('Bildabstand',d+' cm')+metric('Bildgröße',h+' cm');
       b.querySelector('.live-explain').innerHTML=`Das Bild ist <b>virtuell</b>: Hinter dem Spiegel laufen keine echten Lichtstrahlen zusammen. Dein Auge verlängert die reflektierten Strahlen gedanklich rückwärts.`;
     });
@@ -578,9 +577,13 @@ html.js-live .css-sim{display:none}
     const box=shell('Wie groß muss ein Ganzkörperspiegel sein?','Spiele mit Körpergröße und Abstand. Die Strahlenkonstruktion zeigt: Der Mindestspiegel bleibt immer halb so hoch wie die Person.',
       controlRange('s5height','Körpergröße',140,205,1,175,'cm')+controlRange('s5dist','Abstand zum Spiegel',0.5,4,0.1,1.5,'m','Beobachte: Der Abstand verändert den Strahlenverlauf, nicht die nötige Spiegelhöhe.'));
     setup('k5',box,{s5height:175,s5dist:1.5},b=>{
-      const H=+b.querySelector('#s5height').value,d=+b.querySelector('#s5dist').value,mx=620,footY=375,headY=70,eyeHeight=H-10,eyeY=footY-(eyeHeight/H)*(footY-headY),px=mx-(150+(d-.5)/3.5*300),headMirror=(headY+eyeY)/2,footMirror=(footY+eyeY)/2;
+      const H=+b.querySelector('#s5height').value,d=+b.querySelector('#s5dist').value;
+      // Keep the same scale on both axes: changing height must resize the person
+      // and mirror, while changing distance only moves the person horizontally.
+      const scale=1.4,mx=620,footY=375,headY=footY-H*scale,eyeY=footY-(H-10)*scale,px=mx-d*100*scale;
+      const headRadius=10*scale,headMirror=(headY+eyeY)/2,footMirror=(footY+eyeY)/2;
       const eye={x:px,y:eyeY};const head={x:px,y:headY},feet={x:px,y:footY},mh={x:mx,y:headMirror},mf={x:mx,y:footMirror};
-      b.querySelector('svg').innerHTML=`<line class="live-mirror" x1="${mx}" y1="${headMirror}" x2="${mx}" y2="${footMirror}"></line><line stroke="currentColor" stroke-width="7" stroke-linecap="round" x1="${px}" y1="${headY+18}" x2="${px}" y2="${footY}"></line><circle cx="${px}" cy="${headY+8}" r="12" fill="none" stroke="currentColor" stroke-width="5"></circle><circle cx="${eye.x}" cy="${eye.y}" r="6" fill="#f0a11a"></circle>${line('live-ray-in',head,mh,'opacity=".72"')}${line('live-ray-ref',mh,eye,'opacity=".72"')}${line('live-ray-in',feet,mf,'opacity=".72"')}${line('live-ray-ref',mf,eye,'opacity=".72"')}<line class="live-guide" x1="${px}" y1="${headMirror}" x2="${mx}" y2="${headMirror}"></line><line class="live-guide" x1="${px}" y1="${footMirror}" x2="${mx}" y2="${footMirror}"></line>${txt(34,45,`Person: ${H} cm`,'live-svg-label')}${txt(34,69,`Abstand: ${fmt(d,1)} m`,'live-svg-small')}${txt(635,215,`Spiegel ${fmt(H/2,1)} cm`,'live-svg-label')}`;
+      b.querySelector('svg').innerHTML=`<line class="live-mirror" x1="${mx}" y1="${headMirror}" x2="${mx}" y2="${footMirror}"></line><line stroke="currentColor" stroke-width="7" stroke-linecap="round" x1="${px}" y1="${headY+2*headRadius}" x2="${px}" y2="${footY}"></line><circle cx="${px}" cy="${headY+headRadius}" r="${headRadius}" fill="none" stroke="currentColor" stroke-width="5"></circle><circle cx="${eye.x}" cy="${eye.y}" r="6" fill="#f0a11a"></circle>${line('live-ray-in',head,mh,'opacity=".72"')}${line('live-ray-ref',mh,eye,'opacity=".72"')}${line('live-ray-in',feet,mf,'opacity=".72"')}${line('live-ray-ref',mf,eye,'opacity=".72"')}<line class="live-guide" x1="${px}" y1="${headMirror}" x2="${mx}" y2="${headMirror}"></line><line class="live-guide" x1="${px}" y1="${footMirror}" x2="${mx}" y2="${footMirror}"></line>${txt(34,45,`Person: ${H} cm`,'live-svg-label')}${txt(34,69,`Abstand: ${fmt(d,1)} m`,'live-svg-small')}${txt(635,200,'Spiegel','live-svg-label')}${txt(635,222,`${fmt(H/2,1)} cm`,'live-svg-label')}`;
       b.querySelector('.live-caption').innerHTML=metric('Körpergröße',H+' cm')+metric('Mindestspiegel',fmt(H/2,1)+' cm')+metric('Abhängigkeit vom Abstand','keine');
       b.querySelector('.live-explain').innerHTML=`Die Reflexionspunkte für Kopf und Füße liegen jeweils auf halber Höhe zwischen Auge und betrachtetem Punkt. Deshalb ist die nötige Spiegelhöhe immer <b>H / 2 = ${fmt(H/2,1)} cm</b>.`;
     });
