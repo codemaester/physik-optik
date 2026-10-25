@@ -23,24 +23,25 @@ a{color:var(--brand);text-underline-offset:.2em}
 .btn svg{width:19px;height:19px}
 .print-tools p{margin:12px 0 0;color:var(--muted);font-size:.9rem}
 [hidden]{display:none!important}
-.sheet{width:210mm;max-width:calc(100% - 24px);margin:0 auto 28px;padding:10mm;background:white;border:1px solid var(--line);font-size:9.5pt;line-height:1.25}
-.sheet-header{padding-bottom:2mm;border-bottom:1.5pt solid var(--brand);margin-bottom:2mm}
-h1{font-size:23pt;line-height:1.12;letter-spacing:-.025em;margin:0 0 1.5mm}
+.sheet{display:flex;flex-direction:column;width:210mm;min-height:297mm;max-width:calc(100% - 24px);margin:0 auto 28px;padding:10mm;background:white;border:1px solid var(--line);font-size:10pt;line-height:1.32}
+.sheet-header{padding-bottom:3mm;border-bottom:1.5pt solid var(--brand);margin-bottom:3mm}
+h1,.page-title{color:var(--text);font-size:23pt;line-height:1.12;letter-spacing:-.025em;margin:0 0 1.5mm}
+.page-title{font-size:20pt}
 .sheet-header p{margin:0;color:var(--muted);font-size:10pt}
-.columns>div{display:contents}
-.topic{display:grid;grid-template-columns:minmax(0,1fr) 58mm;column-gap:5mm;break-inside:avoid;margin-bottom:1mm}
-.topic>:not(svg){grid-column:1}
-.topic:first-child:not(:has(svg))>*{grid-column:1/-1}
-h2{margin:0 0 1.2mm;font-size:11.5pt;line-height:1.22;letter-spacing:-.015em;color:var(--brand)}
+.topics{display:flex;flex:1;flex-direction:column;justify-content:space-between;gap:3mm}
+.topic{break-inside:avoid}
+.topic-copy{display:flow-root;min-width:0}
+.topic-copy>:last-child{margin-bottom:0}
+h2{margin:0 0 2mm;font-size:12.5pt;line-height:1.22;letter-spacing:-.015em;color:var(--brand)}
 p{margin:1mm 0}
-ul,ol{margin:1.5mm 0;padding-left:4.5mm}
-li+li{margin-top:.7mm}
+ul,ol{margin:1.5mm 0;padding-left:5mm}
+li+li{margin-top:1mm}
 .rule{font-weight:750}
 .formula{font-size:12pt;font-weight:750}
-table{width:100%;border-collapse:collapse;font-size:9.5pt}
-th,td{text-align:left;vertical-align:top;padding:.7mm 0;border-bottom:1px solid var(--line)}
-th{font-weight:750;width:29%;padding-right:2mm}
-.sketch{display:block;grid-column:2;grid-row:1 / span 6;align-self:center;width:100%;height:auto;margin:1.8mm 0;color:var(--text);overflow:visible}
+table{width:100%;border-collapse:collapse;font-size:inherit;margin:2mm 0}
+th,td{text-align:left;vertical-align:top;padding:1mm 0;border-bottom:1px solid var(--line)}
+th{font-weight:750;width:22%;padding-right:3mm}
+.sketch{display:block;float:right;width:58mm;height:auto;margin:0 0 3mm 3mm;color:var(--text);overflow:visible}
 .sketch text{fill:currentColor;stroke:none;font:14px Arial,sans-serif}
 .sketch .label{font-weight:bold}
 .surface{stroke:#505b6c;stroke-width:2;fill:none}
@@ -49,25 +50,28 @@ th{font-weight:750;width:29%;padding-right:2mm}
 .object{stroke:#3157d5;stroke-width:3;fill:none}
 .shade{fill:#e4e7ec}
 .dark-shade{fill:#a6aeb9}
-.check{display:block;padding-top:1.5mm;border-top:1px solid var(--line)}
-.sheet-footer{border-top:1px solid var(--line);padding-top:2mm;margin-top:1mm;color:var(--muted);font-size:8pt}
+.check{display:block;padding-top:3mm;border-top:1px solid var(--line)}
+.sheet-footer{display:flex;justify-content:space-between;gap:5mm;border-top:1px solid var(--line);padding-top:2mm;margin-top:3mm;color:var(--muted);font-size:8pt}
+.page-number{white-space:nowrap;font-variant-numeric:tabular-nums}
 .svg-defs{position:absolute;width:0;height:0;overflow:hidden}
-@media(max-width:640px){
+@media screen and (max-width:720px){
  .print-tools{margin:16px auto;padding:0 12px}
- .sheet{padding:22px 18px;font-size:11pt;line-height:1.5}
- .topic{display:block;margin-bottom:22px}
- h1{font-size:26pt}h2{font-size:14pt}table{font-size:10.5pt}
- .sketch{max-width:420px;margin:12px auto}
+ .sheet{min-height:0;padding:22px 18px;font-size:11pt;line-height:1.5}
+ .topics{gap:24px}
+ .topic{display:block}
+ h1{font-size:26pt}h2{font-size:14pt}.page-title{font-size:22pt}
+ th{width:30%;overflow-wrap:anywhere}
+ .sketch{float:none;width:100%;max-width:420px;margin:12px auto}
 }
 @page{size:A4 portrait;margin:10mm}
 @media print{
  body{background:white;color:#172033}
  .print-tools,.skip-link{display:none!important}
- .sheet{width:auto;max-width:none;margin:0;padding:0;border:0;font-size:9.5pt;line-height:1.25}
- .topic{display:grid;grid-template-columns:minmax(0,1fr) 58mm;margin-bottom:1mm;break-inside:avoid;page-break-inside:avoid}
- .check{display:block}
- h1{font-size:23pt}h2{font-size:11.5pt;break-after:avoid}table{font-size:9.5pt}
- .sketch{max-width:none;margin:1.8mm 0}
+ .sheet{width:auto;min-height:276mm;max-width:none;margin:0;padding:0;border:0}
+ .sheet+.sheet{break-before:page;page-break-before:always}
+ .topic{break-inside:avoid;page-break-inside:avoid}
+ h2{break-after:avoid}
+ .sketch{max-width:none}
 }
 </style>
 </head>
@@ -78,30 +82,33 @@ th{font-weight:750;width:29%;padding-right:2mm}
   <a class="btn" href="index.html">Zurück zur Lernseite</a>
   <button class="btn btn-primary" id="print-sheet" type="button" hidden><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V3h12v6M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v7H6zM18 12h.01"/></svg>Drucken / als PDF speichern</button>
  </div>
- <p>Für eine DIN-A4-Seite: Hochformat, Skalierung 100 %, Kopf- und Fußzeilen im Druckdialog ausschalten. Die Skizzen sind auch in Schwarz-Weiß lesbar.</p>
+ <p>Für zwei DIN-A4-Seiten: Hochformat, Skalierung 100 %, Kopf- und Fußzeilen im Druckdialog ausschalten. Die Skizzen sind auch in Schwarz-Weiß lesbar.</p>
  <p>Alternativ kannst du die Druckfunktion deines Browsers nutzen.</p>
 </nav>
 <svg class="svg-defs" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><defs><marker id="arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 8 4 0 8z" fill="#172033"/></marker></defs></svg>
-<main class="sheet" id="lernzettel" tabindex="-1">
+<main id="lernzettel" tabindex="-1">
+ <div class="sheet" aria-label="Seite 1 von 2">
  <header class="sheet-header">
   <h1>Optik · Lernzettel</h1>
-  <p>Klasse 9 · Licht, Schatten, Spiegel &amp; Brechung</p>
+  <p>Klasse 9 · Grundlagen, Schatten &amp; Spiegel</p>
  </header>
- <div class="columns">
-  <div>
-   <section class="topic" aria-labelledby="grenzflaechen">
+ <div class="topics">
+   <section class="topic topic-wide" aria-labelledby="grenzflaechen">
+    <div class="topic-copy">
     <h2 id="grenzflaechen">1 · Licht an Grenzflächen</h2>
-    <p>Licht läuft im gleichartigen Medium <strong>geradlinig</strong>. An Grenzflächen:</p>
+    <p>Im gleichartigen Medium breitet sich Licht <strong>geradlinig</strong> aus. An einer Grenzfläche sind verschiedene Vorgänge möglich:</p>
     <table aria-label="Die vier Vorgänge an Grenzflächen">
-     <tr><th scope="row">Reflexion</th><td>Zurückwerfen; glatt → geordnet, z. B. Spiegel.</td></tr>
-     <tr><th scope="row">Streuung</th><td>Verteilung in viele Richtungen, z. B. raue Wand oder Nebel.</td></tr>
-     <tr><th scope="row">Absorption</th><td>Aufnahme der Lichtenergie, meist Wärme; z. B. schwarzer Stoff.</td></tr>
-     <tr><th scope="row">Transmission</th><td>Durchgang; Klarglas: durchsichtig. Milchglas: durchscheinend, mit Streuung.</td></tr>
+     <tr><th scope="row">Reflexion</th><td>Licht wird zurückgeworfen. An glatten Flächen geschieht das geordnet, sodass ein Bild entstehen kann, z. B. am Spiegel.</td></tr>
+     <tr><th scope="row">Streuung</th><td>Licht wird in viele Richtungen verteilt, z. B. an einer rauen Wand oder im Nebel.</td></tr>
+     <tr><th scope="row">Absorption</th><td>Der Stoff nimmt Lichtenergie auf und wandelt sie meist in Wärme um, z. B. schwarzer Stoff in der Sonne.</td></tr>
+     <tr><th scope="row">Transmission</th><td>Licht geht durch einen Stoff: Klarglas ist <strong>durchsichtig</strong>; Milchglas ist <strong>durchscheinend</strong>, weil es das Licht dabei streut.</td></tr>
     </table>
+    <p><strong>Wichtig:</strong> Mehrere Vorgänge können gleichzeitig auftreten. Eine Glasscheibe lässt viel Licht durch und spiegelt zugleich einen Teil zurück.</p>
+    </div>
    </section>
    <section class="topic" aria-labelledby="schatten">
+    <div class="topic-copy">
     <h2 id="schatten">2 · Schatten konstruieren</h2>
-    <p><strong>Schattenraum:</strong> unbeleuchteter Raum hinter einem Körper. <strong>Schattenbild:</strong> Schnitt mit einem Schirm.</p>
     <svg class="sketch" viewBox="0 0 340 122" role="img" aria-label="Zwei Lichtquellen beleuchten einen undurchsichtigen Körper. Hinter ihm entstehen Kern- und Halbschatten auf einem Schirm.">
      <path class="shade" d="M132 48 290 8.5 290 111.5 132 72z"/>
      <path class="dark-shade" d="M132 48 290 52.4 290 67.6 132 72z"/>
@@ -112,11 +119,16 @@ th{font-weight:750;width:29%;padding-right:2mm}
      <text x="3" y="28">Quellen</text><text x="108" y="119">Körper</text>
      <text x="194" y="40">Halbschatten</text><text x="190" y="64" class="label">Kernschatten</text><text x="192" y="101">Halbschatten</text><text x="296" y="17">Schirm</text>
     </svg>
-    <p><strong>Randstrahlen</strong> von jeder Quelle an den Körperkanten vorbei zeichnen. <strong>Kern:</strong> keine Quelle sichtbar. <strong>Halbschatten:</strong> nur ein Teil sichtbar. Punktquelle → scharfer Schatten.</p>
+
+    <p>Ein undurchsichtiger Körper hält Licht auf. Der unbeleuchtete Bereich dahinter heißt <strong>Schattenraum</strong>; sein Schnitt mit einem Schirm ist das <strong>Schattenbild</strong>.</p>
+    <p><strong>Konstruktion:</strong> Von jeder Lichtquelle die Randstrahlen gerade an den Körperkanten vorbei bis zum Schirm ziehen. Sie begrenzen die Schattenbereiche.</p>
+    <p><strong>Kernschatten:</strong> Keine Lichtquelle ist sichtbar. <strong>Halbschatten:</strong> Nur ein Teil der Quellen bzw. der ausgedehnten Quelle ist sichtbar. Dort kommt noch Licht an.</p>
+    <p>Punktquelle → scharfer Schatten; ausgedehnte Quelle → Halbschatten. Rückt der Körper näher zur Quelle, wird sein Schatten auf einem festen Schirm größer.</p>
+    </div>
    </section>
    <section class="topic" aria-labelledby="reflexion">
+    <div class="topic-copy">
     <h2 id="reflexion">3 · Reflexionsgesetz</h2>
-    <p class="rule">Einfallswinkel α = Reflexionswinkel β.<br>Beide Winkel immer zum Lot messen!</p>
     <svg class="sketch" viewBox="0 0 340 110" role="img" aria-label="Einfallender und reflektierter Lichtstrahl bilden mit dem senkrecht auf dem Spiegel stehenden Lot die gleichen Winkel Alpha und Beta.">
      <path class="surface" d="M40 86H300"/><path class="normal" d="M170 10v88"/>
      <path class="ray" d="M90 12 170 86M170 86 250 12"/>
@@ -124,9 +136,15 @@ th{font-weight:750;width:29%;padding-right:2mm}
      <text x="151" y="53">α</text><text x="182" y="53">β</text><text x="176" y="17">Lot</text>
      <text x="5" y="30">einfallend</text><text x="255" y="30">reflektiert</text><text x="236" y="104">Spiegel</text>
     </svg>
-    <p><strong>Konstruktion:</strong> Auftreffpunkt → Lot (90° zur Fläche) → α messen → gleichen Winkel gegenüber abtragen → Pfeil vom Spiegel weg.</p>
+
+    <p class="rule">Einfallswinkel α = Reflexionswinkel β.<br>Beide Winkel werden zum Lot gemessen!</p>
+    <p>Das <strong>Lot</strong> steht am Auftreffpunkt senkrecht (90°) auf der Spiegeloberfläche. Es ist die Bezugslinie für beide Winkel.</p>
+    <ol><li>Auftreffpunkt markieren und das Lot einzeichnen.</li><li>α zwischen einfallendem Strahl und Lot messen.</li><li>Auf der anderen Lotseite denselben Winkel β abtragen.</li><li>Reflektierten Strahl mit Pfeil vom Spiegel weg zeichnen.</li></ol>
+    <p><strong>Beispiel:</strong> 30° zum Lot → 30° reflektiert. Sind 30° zur <em>Spiegelfläche</em> gegeben, ist α = 90° − 30° = 60°.</p>
+    </div>
    </section>
    <section class="topic" aria-labelledby="spiegelbild">
+    <div class="topic-copy">
     <h2 id="spiegelbild">4 · Eigenschaften des Spiegelbilds</h2>
     <svg class="sketch" viewBox="0 0 340 91" role="img" aria-label="Gegenstand und virtuelles Bild sind gleich groß und haben denselben Abstand zum ebenen Spiegel. Ihre Verbindung steht senkrecht zum Spiegel.">
      <path class="surface" d="M170 5v71"/>
@@ -137,13 +155,24 @@ th{font-weight:750;width:29%;padding-right:2mm}
      <text x="51" y="87">Gegenstand</text><text x="230" y="87">Bild</text>
      <text x="116" y="57">d</text><text x="215" y="57">d</text><text x="178" y="42">Spiegel</text>
     </svg>
-    <p><strong>Aufrecht, gleich groß, gleicher Abstand</strong> hinter dem Spiegel. <strong>Virtuell:</strong> nur Strahlverlängerungen treffen sich; nicht auf einem Schirm auffangbar. Umkehrung: vorne ↔ hinten.</p>
+
+    <p>Das Bild am ebenen Spiegel ist <strong>aufrecht, gleich groß</strong> und mit <strong>gleichem Abstand hinter dem Spiegel</strong>. Gegenstands- und Bildpunkt liegen auf einer Senkrechten zur Spiegelebene.</p>
+    <p><strong>Warum virtuell?</strong> Die reflektierten Strahlen gelangen ins Auge. Ihre gedachten rückwärtigen Verlängerungen treffen sich hinter dem Spiegel. Von dort scheint das Licht zu kommen; tatsächlich treffen sich dort keine Lichtstrahlen. Das Bild lässt sich nicht auf einem Schirm auffangen.</p>
+    <p><strong>Merke:</strong> Der Spiegel kehrt vorne ↔ hinten um. „Links und rechts vertauscht“ wirkt es beim Vergleich mit einer uns zugewandten Person.</p>
+    </div>
    </section>
-  </div>
-  <div>
+ </div>
+ <footer class="sheet-footer"><span>Optik · Grundlagen und Spiegel</span><span class="page-number">Seite 1 / 2</span></footer>
+ </div>
+ <div class="sheet" aria-label="Seite 2 von 2">
+ <header class="sheet-header">
+  <h2 class="page-title">Optik · Lernzettel – Fortsetzung</h2>
+  <p>Klasse 9 · Konstruktionen, Brechung &amp; Totalreflexion</p>
+ </header>
+ <div class="topics">
    <section class="topic" aria-labelledby="konstruktion">
+    <div class="topic-copy">
     <h2 id="konstruktion">5 · Spiegelbilder konstruieren</h2>
-    <p>Vom Gegenstandspunkt die <strong>Senkrechte</strong> zum Spiegel zeichnen; denselben Abstand dahinter abtragen. Bildpunkte verbinden, Strahlverlängerungen dahinter stricheln.</p>
     <svg class="sketch" viewBox="0 0 340 130" role="img" aria-label="Strahlen von Scheitel und Fuß gelangen über den Spiegel zum Auge. Der obere Spiegelrand liegt zwischen Auge und Scheitel, der untere zwischen Auge und Fuß. Die Spiegelhöhe beträgt die halbe Körperhöhe.">
      <path class="normal" d="M78 13H270M78 113H270"/>
      <path class="object" d="M78 13v100"/><circle cx="78" cy="27" r="3.5" fill="currentColor"/>
@@ -153,11 +182,17 @@ th{font-weight:750;width:29%;padding-right:2mm}
      <text x="35" y="67">H</text><text x="272" y="49" class="label">H/2</text>
      <text x="83" y="11">Scheitel</text><text x="83" y="125">Fuß</text><text x="83" y="44">Auge</text><text x="213" y="91">Spiegel</text>
     </svg>
-    <p><strong>Ganzkörperspiegel: Mindesthöhe = H/2.</strong> Oberkante: Mitte Auge–Scheitel; Unterkante: Mitte Auge–Fuß. <strong>Unabhängig vom Abstand.</strong> Beispiel: 170 cm Körper → 85 cm Spiegel.</p>
+
+    <ol><li>Vom Gegenstandspunkt eine <strong>Senkrechte</strong> zum Spiegel zeichnen.</li><li>Seinen Abstand zur Spiegelebene messen und denselben Abstand dahinter abtragen: Dort liegt der Bildpunkt.</li><li>Mehrere charakteristische Punkte spiegeln und verbinden.</li></ol>
+    <p>Strahlenkonstruktion: α = β beachten, reflektierte Strahlen zum Auge zeichnen und <strong>hinter dem Spiegel gestrichelt verlängern</strong>. Dort treffen sich die Verlängerungen im virtuellen Bildpunkt.</p>
+    <p class="rule">Ganzkörperspiegel: Mindesthöhe = H/2.</p>
+    <p>Die Oberkante liegt in der Mitte zwischen Auge und Scheitel, die Unterkante in der Mitte zwischen Auge und Fuß. Dort werden die Strahlen zum Auge reflektiert.</p>
+    <p><strong>Beispiel:</strong> 170 cm Körperhöhe → mindestens 85 cm Spiegel. Die nötige Höhe ist <strong>unabhängig vom Abstand</strong> der Person; der Spiegel muss passend aufgehängt sein.</p>
+    </div>
    </section>
    <section class="topic" aria-labelledby="brechung">
+    <div class="topic-copy">
     <h2 id="brechung">6 · Brechung</h2>
-    <p>Medienwechsel → andere Lichtgeschwindigkeit, bei schrägem Einfall meist andere Richtung. <strong>Optisch dichter = Licht langsamer.</strong></p>
     <svg class="sketch" viewBox="0 0 340 125" role="img" aria-label="Links: Luft zu Glas, Brechung zum Lot, Beta kleiner als Alpha. Rechts: Glas zu Luft, Brechung vom Lot weg, Beta größer als Alpha.">
      <path class="surface" d="M8 55h150M182 55h150"/>
      <path class="normal" d="M85 6v112M255 6v112"/>
@@ -166,12 +201,17 @@ th{font-weight:750;width:29%;padding-right:2mm}
      <text x="67" y="35">α</text><text x="89" y="87">β</text><text x="241" y="34">α</text><text x="265" y="85">β</text>
      <text x="39" y="123" class="label">zum Lot · β &lt; α</text><text x="206" y="123" class="label">vom Lot · β &gt; α</text>
     </svg>
-    <p><strong>Dünn → dicht:</strong> zum Lot. <strong>Dicht → dünn:</strong> vom Lot (solange Licht austritt). Bei α = 0° keine Richtungsänderung.</p>
-    <p><strong>Brechungsdiagramm:</strong> α messen → β ablesen → im zweiten Medium zum Lot abtragen → Strahl zeichnen.</p>
+
+    <p>Beim Wechsel zwischen transparenten Medien ändert sich die Lichtgeschwindigkeit. Bei schrägem Einfall ändert sich meist auch die Richtung. <strong>Optisch dichter</strong> bedeutet: Licht breitet sich dort langsamer aus.</p>
+    <p><strong>Dünn → dicht, z. B. Luft → Glas:</strong> Brechung <strong>zum Lot</strong>, also β &lt; α. <strong>Dicht → dünn, z. B. Glas → Luft:</strong> Brechung <strong>vom Lot weg</strong>, also β &gt; α, solange Licht austritt.</p>
+    <p>Bei <strong>senkrechtem Einfall (α = 0°)</strong> bleibt die Richtung gleich. Die Geschwindigkeit ändert sich trotzdem. Ein teilweise eingetauchter Stab wirkt durch Brechung geknickt.</p>
+    <p><strong>Mit Brechungsdiagramm:</strong> Lot einzeichnen → α zum Lot messen → passenden Wert β im vorgegebenen Diagramm ablesen → β im zweiten Medium zum Lot abtragen → Strahl mit Richtungspfeil zeichnen.</p>
+    <p><strong>Prüfen:</strong> Ins dichtere Medium → näher ans Lot!</p>
+    </div>
    </section>
    <section class="topic" aria-labelledby="totalreflexion">
+    <div class="topic-copy">
     <h2 id="totalreflexion">7 · Totalreflexion</h2>
-    <p><strong>Beide Bedingungen:</strong> Übergang <strong>optisch dicht → dünn</strong> und Einfallswinkel <strong>α &gt; Grenzwinkel α<sub>G</sub></strong>.</p>
     <svg class="sketch" viewBox="0 0 340 112" role="img" aria-label="Am Grenzwinkel läuft der austretende Strahl entlang der Grenzfläche. Oberhalb des Grenzwinkels wird der gesamte Strahl ins Glas zurückreflektiert.">
      <path class="surface" d="M8 35h150M182 35h150"/>
      <path class="normal" d="M75 7v90M257 7v90"/>
@@ -180,16 +220,23 @@ th{font-weight:750;width:29%;padding-right:2mm}
      <text x="79" y="69">α<tspan baseline-shift="sub" font-size="9">G</tspan></text><text x="229" y="65">α</text><text x="272" y="65">α</text>
      <text x="17" y="108">Grenzwinkel · β = 90°</text><text x="208" y="108" class="label">Totalreflexion</text>
     </svg>
-    <p>Glas → Luft: α<sub>G</sub> ≈ 42°; Wasser → Luft: ≈ 49°. <strong>Am</strong> Grenzwinkel: β = 90°; erst <strong>darüber</strong> tritt kein Licht aus.</p>
-    <p><strong>Anwendungen:</strong> Glasfaser, Endoskop, Prisma. Im Lichtleiter: wiederholte Totalreflexion, dazwischen geradlinige Ausbreitung.</p>
+
+    <p>Das Licht wird vollständig ins erste Medium zurückgeworfen. Dafür müssen <strong>beide Bedingungen</strong> erfüllt sein: Übergang <strong>optisch dicht → dünn</strong> und Einfallswinkel <strong>α &gt; Grenzwinkel α<sub>G</sub></strong>.</p>
+    <p>Mit größerem α läuft der gebrochene Strahl immer flacher. <strong>Am Grenzwinkel</strong> liegt er entlang der Grenzfläche (β = 90°). Erst <strong>oberhalb</strong> davon tritt kein Licht ins zweite Medium aus.</p>
+    <p><strong>Beispiel Glas → Luft:</strong> α<sub>G</sub> ≈ 42°. Bei 30°: Brechung und Teilreflexion; bei 50°: Totalreflexion. Wasser → Luft: α<sub>G</sub> ≈ 49°. <strong>Luft → Glas:</strong> keine Totalreflexion, unabhängig vom Winkel.</p>
+    <p><strong>Anwendungen:</strong> In Glasfasern und Endoskopen wird Licht wiederholt an einer optisch dünneren Umgebung totalreflektiert. Dazwischen läuft es geradlinig. Auch Prismen nutzen Totalreflexion zum Umlenken.</p>
+    </div>
    </section>
    <section class="topic check" aria-labelledby="zeichencheck">
+    <div class="topic-copy">
     <h2 id="zeichencheck">Vor der Arbeit: Zeichnungen prüfen</h2>
-    <p>Lineal · Lot rechtwinklig · Winkel zum Lot · Richtungspfeile · Medien beschriften · virtuelle Verlängerungen stricheln.</p>
+    <p>Mit Lineal zeichnen · Lot rechtwinklig zur Fläche · Winkel immer zum Lot · Richtungspfeile setzen · Medien beschriften · virtuelle Verlängerungen stricheln.</p>
+    <p><strong>Selbsttest:</strong> Kannst du zu jeder Skizze erklären, wohin das Licht läuft und welche Regel den Strahlenverlauf bestimmt?</p>
+    </div>
    </section>
-  </div>
  </div>
- <footer class="sheet-footer">Kurzfassung der sieben Kapitel der Optik-Lernseite. Bei abweichender Notation gilt die Schreibweise aus dem Unterricht.</footer>
+ <footer class="sheet-footer"><span>Bei abweichender Notation gilt die Schreibweise aus dem Unterricht.</span><span class="page-number">Seite 2 / 2</span></footer>
+ </div>
 </main>
 <script>
  const printButton = document.getElementById('print-sheet');
